@@ -1,1 +1,137 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Restauranter | Loge Langoustine</title>
+
+<style>
+
+body{
+    background:#111;
+    color:white;
+    font-family:Arial,sans-serif;
+    margin:0;
+    padding:20px;
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.logo img{
+    width:140px;
+    border-radius:50%;
+}
+
+.back{
+    color:#7cc8ff;
+    text-decoration:none;
+}
+
+.toggle{
+    width:100%;
+    background:none;
+    border:none;
+    color:white;
+    text-align:left;
+    cursor:pointer;
+    font-size:20px;
+    padding:10px 0;
+}
+
+.city{
+    margin-left:20px;
+}
+
+.restaurant{
+    margin-left:40px;
+    padding:6px 0;
+    color:#7cc8ff;
+}
+
+.hidden{
+    display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<a class="back" href="index.html">← Forside</a>
+
+<div class="logo">
+    <img src="images/logo.png" alt="Loge Langoustine">
+</div>
+
+<h1>Restauranter</h1>
+
+<button class="toggle" onclick="toggleMenu('spanien', this)">
+▶ 🇪🇸 Spanien
+</button>
+
+<div id="spanien" class="hidden">
+
+    <button class="toggle city"
+            onclick="toggleMenu('barcelona', this)">
+        ▶ Barcelona
+    </button>
+
+    <div id="barcelona" class="hidden">
+
+        <div class="restaurant">
+            Enigma
+        </div>
+
+        <div class="restaurant">
+            Cocina Hermanos Torres
+        </div>
+
+        <div class="restaurant">
+            Hoffman
+        </div>
+
+    </div>
+
+    <button class="toggle city"
+            onclick="toggleMenu('llanca', this)">
+        ▶ Llançà
+    </button>
+
+    <div id="llanca" class="hidden">
+
+        <div class="restaurant">
+            Miramar
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function toggleMenu(id, button){
+
+    const menu = document.getElementById(id);
+
+    if(menu.style.display === "block"){
+
+        menu.style.display = "none";
+        button.innerHTML = button.innerHTML.replace("▼","▶");
+
+    }else{
+
+        menu.style.display = "block";
+        button.innerHTML = button.innerHTML.replace("▶","▼");
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
