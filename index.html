@@ -386,12 +386,14 @@ function showRestaurant(name){
 
         <div class="info-card">
 
-            <div style="
-                font-size:34px;
-                margin-bottom:20px;
-            ">
-                ${"⭐".repeat(parseInt(r.michelin || 0))}
-            </div>
+            ${r.michelin ? `
+<div style="
+    font-size:34px;
+    margin-bottom:20px;
+">
+    ${"⭐".repeat(parseInt(r.michelin))}
+</div>
+` : ''}
 
             <p>
                 <strong>${addressLabel}</strong><br>
@@ -403,12 +405,14 @@ function showRestaurant(name){
                 ${reviewText}
             </p>
 
-            <p>
-                <a href="${r.instagram}"
-                   target="_blank">
-                   ${reelText}
-                </a>
-            </p>
+            ${r.instagram ? `
+<p>
+    <a href="${r.instagram}"
+       target="_blank">
+       ${reelText}
+    </a>
+</p>
+` : ''}
 
         </div>
 
