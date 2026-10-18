@@ -39,7 +39,7 @@ body{
 
 .logo{
     text-align:center;
-    margin-bottom:25px;
+    margin-bottom:20px;
 }
 
 .logo img{
@@ -47,6 +47,25 @@ body{
     height:180px;
     object-fit:cover;
     border-radius:50%;
+}
+
+.language-switch{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.language-switch button{
+    background:#222;
+    color:white;
+    border:1px solid #444;
+    border-radius:8px;
+    padding:8px 12px;
+    cursor:pointer;
+    margin:2px;
+}
+
+.language-switch button:hover{
+    background:#333;
 }
 
 .toggle{
@@ -103,10 +122,14 @@ h1{
     #sidebar{
         width:100%;
     }
+
+    #content{
+        padding:20px;
+    }
 }
+
 </style>
 </head>
-
 <body>
 
 <div id="container">
@@ -115,6 +138,11 @@ h1{
 
         <div class="logo">
             <img src="images/logo.png">
+        </div>
+
+        <div class="language-switch">
+            <button onclick="setLanguage('da')">🇩🇰 Dansk</button>
+            <button onclick="setLanguage('en')">🇬🇧 English</button>
         </div>
 
         <div id="menu">
@@ -140,8 +168,7 @@ h1{
             </p>
 
             <p>
-                Vælg et land i menuen til venstre
-                for at udforske de steder vi har besøgt.
+                Vælg et land i menuen til venstre.
             </p>
 
         </div>
@@ -153,6 +180,7 @@ h1{
 <script>
 
 let restaurants = [];
+let currentLanguage = "da";
 
 fetch('GithubRestauranter.csv')
 .then(response => response.text())
@@ -165,15 +193,15 @@ fetch('GithubRestauranter.csv')
         const cols = row.split(';');
 
         return {
-    land: cols[0].trim(),
-    by: cols[1].trim(),
-    restaurant: cols[2].trim(),
-    michelin: cols[3].trim(),
-    adresse: cols[4].trim(),
-    instagram: cols[5].trim(),
-    anmeldelse: cols[6].trim(),
-    billede: (cols[7] || "").trim()
-};
+            land: (cols[0] || "").trim(),
+            by: (cols[1] || "").trim(),
+            restaurant: (cols[2] || "").trim(),
+            michelin: (cols[3] || "").trim(),
+            adresse: (cols[4] || "").trim(),
+            instagram: (cols[5] || "").trim(),
+            anmeldelse: (cols[6] || "").trim(),
+            billede: (cols[7] || "").trim()
+        };
 
     });
 
@@ -187,35 +215,34 @@ function buildMenu(){
 
     let html = '';
 
-   const lande =
-[...new Set(
-    restaurants.map(r => r.land.trim())
-)];
+    const lande = [...new Set(
+        restaurants.map(r => r.land)
+    )];
 
     lande.forEach((land,landIndex)=>{
 
         html += `
         <button class="toggle"
-        onclick="toggleMenu('land${landIndex}',this)">
+        onclick="toggleMenu('land${landIndex}', this)">
             ▶ ${land}
         </button>
 
-        <div id="land${landIndex}"
-             class="hidden">
+        <div id="land${landIndex}" class="hidden">
         `;
 
-        const byer =
-        [...new Set(
+        const byer = [...new Set(
+
             restaurants
             .filter(r => r.land === land)
             .map(r => r.by)
+
         )];
 
         byer.forEach((by,byIndex)=>{
 
             html += `
             <button class="toggle city"
-            onclick="toggleMenu('by${landIndex}${byIndex}',this)">
+            onclick="toggleMenu('by${landIndex}${byIndex}', this)">
                 ▶ ${by}
             </button>
 
@@ -224,14 +251,12 @@ function buildMenu(){
             `;
 
             restaurants
-            .filter(r =>
-                r.land === land &&
-                r.by === by)
+            .filter(r => r.land === land && r.by === by)
             .forEach(r => {
 
                 html += `
                 <div class="restaurant"
-                onclick="showRestaurant('${r.restaurant}')">
+                     onclick="showRestaurant('${r.restaurant}')">
                     ${r.restaurant}
                 </div>
                 `;
@@ -259,13 +284,71 @@ function toggleMenu(id,btn){
 
         element.style.display="none";
         btn.innerHTML =
-        btn.innerHTML.replace("▼","▶");
+            btn.innerHTML.replace("▼","▶");
 
     }else{
 
         element.style.display="block";
         btn.innerHTML =
-        btn.innerHTML.replace("▶","▼");
+            btn.innerHTML.replace("▶","▼");
+
+    }
+
+}
+
+function setLanguage(lang){
+
+    currentLanguage = lang;
+
+    if(lang === "da"){
+
+        document.getElementById('content').innerHTML = `
+
+        <h1>Velkommen til Loge Langoustine</h1>
+
+        <div class="info-card">
+
+            <p>
+                Velkommen til vores gastronomiske univers.
+            </p>
+
+            <p>
+                På denne side samler vi restauranter,
+                vinbarer og madoplevelser fra Danmark
+                og resten af verden.
+            </p>
+
+            <p>
+                Vælg et land i menuen til venstre.
+            </p>
+
+        </div>
+        `;
+
+    }else{
+
+        document.getElementById('content').innerHTML = `
+
+        <h1>Welcome to Loge Langoustine</h1>
+
+        <div class="info-card">
+
+            <p>
+                Welcome to our gastronomic universe.
+            </p>
+
+            <p>
+                Here we collect restaurants,
+                wine bars and dining experiences
+                from Denmark and around the world.
+            </p>
+
+            <p>
+      oose a country in the menu.
+            </p>
+
+        </div>
+        `;
 
     }
 
@@ -277,39 +360,59 @@ function showRestaurant(name){
     restaurants.find(x =>
         x.restaurant === name);
 
+    const addressLabel =
+        currentLanguage === "da"
+        ? "📍 Adresse"
+        : "📍 Address";
+
+    const reviewLabel =
+        currentLanguage === "da"
+        ? "💬 Anmeldelse"
+        : "💬 Review";
+
+    const reviewText =
+        currentLanguage === "da"
+        ? (r.anmeldelse || "Ingen anmeldelse endnu")
+        : (r.anmeldelse || "No review yet");
+
+    const reelText =
+        currentLanguage === "da"
+        ? "🎥 Se Instagram Reel"
+        : "🎥 Watch Instagram Reel";
+
     document.getElementById('content').innerHTML = `
 
-    <h1>${r.restaurant}</h1>
+        <h1>${r.restaurant}</h1>
 
-    <div class="info-card">
+        <div class="info-card">
 
-        <div style="
-            font-size:32px;
-            margin-bottom:20px;
-        ">
-            ${"⭐".repeat(parseInt(r.michelin || 0))}
+            <div style="
+                font-size:34px;
+                margin-bottom:20px;
+            ">
+                ${"⭐".repeat(parseInt(r.michelin || 0))}
+            </div>
+
+            <p>
+                <strong>${addressLabel}</strong><br>
+                ${r.adresse}
+            </p>
+
+            <p>
+                <strong>${reviewLabel}</strong><br>
+                ${reviewText}
+            </p>
+
+            <p>
+                <a href="${r.instagram}"
+                   target="_blank">
+                   ${reelText}
+                </a>
+            </p>
+
         </div>
 
-        <p>
-            <strong>📍 Adresse</strong><br>
-            ${r.adresse}
-        </p>
-
-        <p>
-            <strong>💬 Anmeldelse</strong><br>
-            ${r.anmeldelse || "Ingen anmeldelse endnu"}
-        </p>
-
-        <p>
-            <a href="${r.instagram}"
-               target="_blank">
-               🎥 Se Instagram Reel
-            </a>
-        </p>
-
-    </div>
-
-`;
+    `;
 
 }
 
