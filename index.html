@@ -3,72 +3,312 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Loge Langoustine</title>
 
 <style>
 
+*{
+    box-sizing:border-box;
+}
+
 body{
+    margin:0;
     background:#111;
     color:white;
     font-family:Arial,sans-serif;
+}
+
+#container{
+    display:flex;
+    min-height:100vh;
+}
+
+#sidebar{
+    width:350px;
+    background:#1a1a1a;
+    padding:20px;
+    overflow-y:auto;
+    border-right:1px solid #333;
+}
+
+#content{
+    flex:1;
+    padding:40px;
+}
+
+.logo{
     text-align:center;
-    margin:0;
-    padding:40px 20px;
+    margin-bottom:25px;
 }
 
 .logo img{
-    width:220px;
+    width:180px;
+    height:180px;
+    object-fit:cover;
     border-radius:50%;
 }
 
+.toggle{
+    width:100%;
+    background:none;
+    border:none;
+    color:white;
+    text-align:left;
+    font-size:18px;
+    cursor:pointer;
+    padding:8px 0;
+}
+
+.city{
+    margin-left:20px;
+}
+
+.restaurant{
+    margin-left:40px;
+    color:#7cc8ff;
+    cursor:pointer;
+    padding:5px 0;
+}
+
+.restaurant:hover{
+    color:white;
+}
+
+.hidden{
+    display:none;
+}
+
 h1{
-    margin-top:20px;
+    margin-top:0;
 }
 
-.text{
-    max-width:700px;
-    margin:30px auto;
-    line-height:1.6;
-    color:#ddd;
+.info-card{
+    background:#222;
+    padding:20px;
+    border-radius:12px;
+    max-width:800px;
 }
 
-.button{
-    display:inline-block;
-    margin-top:20px;
-    padding:15px 30px;
-    background:#7cc8ff;
-    color:black;
-    text-decoration:none;
-    font-weight:bold;
-    border-radius:10px;
+.info-card a{
+    color:#7cc8ff;
 }
 
-.button:hover{
-    background:white;
-}
+@media(max-width:900px){
 
+    #container{
+        flex-direction:column;
+    }
+
+    #sidebar{
+        width:100%;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<div class="logo">
-    <img src="images/logo.png" alt="Loge Langoustine">
+<div id="container">
+
+    <div id="sidebar">
+
+        <div class="logo">
+            <img src="images/logo.png">
+        </div>
+
+        <div id="menu">
+            Indlæser restauranter...
+        </div>
+
+    </div>
+
+    <div id="content">
+
+        <h1>Velkommen til Loge Langoustine</h1>
+
+        <div class="info-card">
+
+            <p>
+                Velkommen til vores gastronomiske univers.
+            </p>
+
+            <p>
+                På denne side samler vi restauranter,
+                vinbarer og madoplevelser fra Danmark
+                og resten af verden.
+            </p>
+
+            <p>
+                Vælg et land i menuen til venstre
+                for at udforske de steder vi har besøgt.
+            </p>
+
+        </div>
+
+    </div>
+
 </div>
 
-<h1>Loge Langoustine</h1>
+<script>
 
-<div class="text">
-    Velkommen til Loge Langoustine.
+let restaurants = [];
 
-    Her samler vi restauranter, vinbarer og gastronomiske oplevelser fra vores rejser rundt i Danmark og udlandet.
+fetch('GithubRestauranter.csv')
+.then(response => response.text())
+.then(csv => {
 
-    Udforsk restauranterne efter land og by.
-</div>
+    const rows = csv.trim().split('\n').slice(1);
 
-<a class="button" href="restauranter.html">
-    🍽 Restauranter
-</a>
+    restaurants = rows.map(row => {
+
+        const cols = row.split(';');
+
+        return {
+            land: cols[0],
+            by: cols[1],
+            restaurant: cols[2],
+            michelin: cols[3],
+            adresse: cols[4],
+            instagram: cols[5],
+            anmeldelse: cols[6],
+            billede: cols[7]
+        };
+
+    });
+
+    buildMenu();
+
+});
+
+function buildMenu(){
+
+    const menu = document.getElementById('menu');
+
+    let html = '';
+
+    const lande =
+    [...new Set(restaurants.map(r => r.land))];
+
+    lande.forEach((land,landIndex)=>{
+
+        html += `
+        <button class="toggle"
+        onclick="toggleMenu('land${landIndex}',this)">
+            ▶ ${land}
+        </button>
+
+        <div id="land${landIndex}"
+             class="hidden">
+        `;
+
+        const byer =
+        [...new Set(
+            restaurants
+            .filter(r => r.land === land)
+            .map(r => r.by)
+        )];
+
+        byer.forEach((by,byIndex)=>{
+
+            html += `
+            <button class="toggle city"
+            onclick="toggleMenu('by${landIndex}${byIndex}',this)">
+                ▶ ${by}
+            </button>
+
+            <div id="by${landIndex}${byIndex}"
+                 class="hidden">
+            `;
+
+            restaurants
+            .filter(r =>
+                r.land === land &&
+                r.by === by)
+            .forEach(r => {
+
+                html += `
+                <div class="restaurant"
+                onclick="showRestaurant('${r.restaurant}')">
+                    ${r.restaurant}
+                </div>
+                `;
+
+            });
+
+            html += `</div>`;
+
+        });
+
+        html += `</div>`;
+
+    });
+
+    menu.innerHTML = html;
+
+}
+
+function toggleMenu(id,btn){
+
+    const element =
+        document.getElementById(id);
+
+    if(element.style.display==="block"){
+
+        element.style.display="none";
+        btn.innerHTML =
+        btn.innerHTML.replace("▼","▶");
+
+    }else{
+
+        element.style.display="block";
+        btn.innerHTML =
+        btn.innerHTML.replace("▶","▼");
+
+    }
+
+}
+
+function showRestaurant(name){
+
+    const r =
+    restaurants.find(x =>
+        x.restaurant === name);
+
+    document.getElementById('content').innerHTML = `
+
+        <h1>${r.restaurant}</h1>
+
+        <div class="info-card">
+
+            <p>
+                <strong>Michelinstjerner:</strong>
+                ${r.michelin}
+     
+            <p>
+                <strong>Adresse:</strong><br>
+                ${r.adresse}
+            </p>
+
+            <p>
+                <strong>Anmeldelse:</strong><br>
+                ${r.anmeldelse}
+            </p>
+
+            <p>
+                <a href="${r.instagram}"
+                   target="_blank">
+                   Instagram Reel
+                </a>
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+</script>
 
 </body>
 </html>
