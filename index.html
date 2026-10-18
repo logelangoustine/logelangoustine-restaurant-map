@@ -237,6 +237,52 @@ function toggleMenu(id, button){
 
 }
 
+function toggleMenu(id, button){
+
+    const menu = document.getElementById(id);
+
+    if(menu.style.display === "block"){
+
+        menu.style.display = "none";
+        button.innerHTML = button.innerHTML.replace("▼","▶");
+
+    } else {
+
+        menu.style.display = "block";
+        button.innerHTML = button.innerHTML.replace("▶","▼");
+
+    }
+
+}
+
+
+if (navigator.geolocation) {
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+
+        L.circle([lat, lng], {
+            radius: 100,
+            color: "#0080ff",
+            fillColor: "#0080ff",
+            fillOpacity: 0.15
+        }).addTo(map);
+
+        L.circleMarker([lat, lng], {
+            radius: 8,
+            color: "#fff",
+            weight: 3,
+            fillColor: "#0080ff",
+            fillOpacity: 1
+        }).addTo(map)
+        .bindPopup("📍 Du er her");
+
+    });
+
+}
+
 </script>
 
 </body>
