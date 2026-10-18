@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Restauranter | Loge Langoustine</title>
 
 <style>
@@ -31,101 +30,189 @@ body{
     text-decoration:none;
 }
 
-.toggle{
+.hidden{
+    display:none;
+}
+
+.country-btn,
+.city-btn{
     width:100%;
     background:none;
     border:none;
     color:white;
     text-align:left;
     cursor:pointer;
-    font-size:20px;
     padding:10px 0;
+    font-size:20px;
 }
 
-.city{
+.city-btn{
     margin-left:20px;
+    font-size:17px;
 }
 
 .restaurant{
-    margin-left:40px;
+    margin-left:45px;
     padding:6px 0;
     color:#7cc8ff;
 }
 
-.hidden{
-    display:none;
+.restaurant-detail{
+    margin-left:45px;
+    margin-bottom:15px;
+    background:#222;
+    padding:10px;
+    border-radius:8px;
+}
+
+h1{
+    margin-top:0;
 }
 
 </style>
 </head>
-
 <body>
 
 <a class="back" href="index.html">← Forside</a>
 
 <div class="logo">
-    <img src="images/logo.png" alt="Loge Langoustine">
+    <img src="images/logo.png">
 </div>
 
 <h1>Restauranter</h1>
 
-<button class="toggle" onclick="toggleMenu('spanien', this)">
-▶ 🇪🇸 Spanien
-</button>
-
-<div id="spanien" class="hidden">
-
-    <button class="toggle city"
-            onclick="toggleMenu('barcelona', this)">
-        ▶ Barcelona
-    </button>
-
-    <div id="barcelona" class="hidden">
-
-        <div class="restaurant">
-            Enigma
-        </div>
-
-        <div class="restaurant">
-            Cocina Hermanos Torres
-        </div>
-
-        <div class="restaurant">
-            Hoffman
-        </div>
-
-    </div>
-
-    <button class="toggle city"
-            onclick="toggleMenu('llanca', this)">
-        ▶ Llançà
-    </button>
-
-    <div id="llanca" class="hidden">
-
-        <div class="restaurant">
-            Miramar
-        </div>
-
-    </div>
-
+<div id="restaurantContainer">
+    Indlæser restauranter...
 </div>
 
 <script>
 
-function toggleMenu(id, button){
+fetch('GithubRestauranter.csv')
+.then(response => response.text())
+.then(csv => {
 
-    const menu = document.getElementById(id);
+    const lines = csv.trim().split('\n');
 
-    if(menu.style.display === "block"){
+    const data = [];
 
-        menu.style.display = "none";
-        button.innerHTML = button.innerHTML.replace("▼","▶");
+    for(let i = 1; i < lines.length; i++){
+
+        const cols = lines[i].split(';');
+
+        data.push({
+            land: cols[0],
+            by: cols[1],
+            restaurant: cols[2],
+            michelin: cols[3],
+            adresse: cols[4],
+            instagram: cols[5],
+            anmeldelse: cols[6]
+        });
+
+    }
+
+    const container =
+        document.getElementById('restaurantContainer');
+
+    let html = '';
+
+    const lande = [...new Set(data.map(x => x.land))];
+
+    lande.forEach((land,indexLand)=>{
+
+        html += `
+        <button
+        class="country-btn"
+        onclick="toggleMenu('land${indexLand}', this)">
+        ▶ ${land}
+        </button>
+
+        <div id="land${indexLand}" class="hidden">
+        `;
+
+        const byer =
+            [...new Set(
+                data
+                .filter(x=>x.land===land)
+                .map(x=>x.by)
+            )];
+
+        byer.forEach((by,indexBy)=>{
+
+            html += `
+            <button
+            class="city-btn"
+            onclick="toggleMenu('by${indexLand}${indexBy}', this)">
+            ▶ ${by}
+            </button>
+
+            <div
+            id="by${indexLand}${indexBy}"
+            class="hidden">
+            `;
+
+            data
+            .filter(x=>x.land===land && x.by===by)
+            .forEach(r=>{
+
+                html += `
+                <div class="restaurant">
+                    ${r.restaurant}
+                </div>
+
+                <div class="restaurant-detail">
+
+                    ⭐ Michelin:
+                    ${r.michelin}
+
+                    <br><br>
+
+                    📍 ${r.adresse}
+
+                    <br><br>
+
+                    💬 ${r.anmeldelse}
+
+                    <br><br>
+
+                    <a href="${r.instagram}"
+                       target="_blank">
+                       Instagram Reel
+                    </a>
+
+                </div>
+                `;
+
+            });
+
+            html += `</div>`;
+
+        });
+
+        html += `</div>`;
+
+    });
+
+    container.innerHTML = html;
+
+});
+
+function toggleMenu(id,btn){
+
+    const element =
+        document.getElementById(id);
+
+    if(element.style.display==="block"){
+
+        element.style.display="none";
+        btn.innerHTML =
+            btn.innerHTML.replace("▼","▶");
 
     }else{
 
-        menu.style.display = "block";
-        button.innerHTML = button.innerHTML.replace("▶","▼");
+        element.style.display="block";
+        btn.innerHTML =
+            btn.innerHTML.replace("▶","▼");
 
     }
 
