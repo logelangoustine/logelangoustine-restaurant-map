@@ -3,115 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Loge Langoustine</title>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
 <style>
 
-html, body{
-    margin:0;
-    padding:0;
-    height:100%;
-    font-family:Arial, sans-serif;
-}
-
-#container{
-    display:flex;
-    height:100vh;
-}
-
-#sidebar{
-    width:320px;
+body{
     background:#111;
     color:white;
-    overflow-y:auto;
-    padding:20px;
-}
-
-.logo{
+    font-family:Arial,sans-serif;
     text-align:center;
-    margin-bottom:25px;
+    margin:0;
+    padding:40px 20px;
 }
 
 .logo img{
-    width:180px;
-    height:180px;
+    width:220px;
     border-radius:50%;
-    object-fit:cover;
-    border:4px solid #333;
 }
 
-.logo h2{
-    margin-top:15px;
-    font-size:30px;
+h1{
+    margin-top:20px;
 }
 
-.toggle{
-    width:100%;
-    background:none;
-    border:none;
-    color:white;
-    text-align:left;
-    cursor:pointer;
-    padding:8px 0;
-    font-size:18px;
+.text{
+    max-width:700px;
+    margin:30px auto;
+    line-height:1.6;
+    color:#ddd;
 }
 
-.toggle:hover{
-    color:#7cc8ff;
+.button{
+    display:inline-block;
+    margin-top:20px;
+    padding:15px 30px;
+    background:#7cc8ff;
+    color:black;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:10px;
 }
 
-.cityBtn{
-    margin-left:15px;
-    font-size:16px;
-    color:#ccc;
-}
-
-.restaurant{
-    margin-left:35px;
-    padding:6px 0;
-    cursor:pointer;
-    color:#7cc8ff;
-}
-
-.restaurant:hover{
-    color:white;
-}
-
-.hidden{
-    display:none;
-}
-
-#map{
-    flex:1;
-    height:100%;
-}
-
-@media (max-width:768px){
-
-    #container{
-        flex-direction:column;
-    }
-
-    #sidebar{
-        width:100%;
-        height:40vh;
-    }
-
-    #map{
-        height:60vh;
-    }
-
-    .logo img{
-        width:100px;
-        height:100px;
-    }
-
-    .logo h2{
-        font-size:22px;
-    }
+.button:hover{
+    background:white;
 }
 
 </style>
@@ -119,171 +52,23 @@ html, body{
 
 <body>
 
-<div id="container">
-
-    <div id="sidebar">
-
-        <div class="logo">
+<div class="logo">
     <img src="images/logo.png" alt="Loge Langoustine">
-    <h2>Loge Langoustine</h2>
 </div>
 
-        <button class="toggle" onclick="toggleMenu('spanien', this)">
-            ▶ 🇪🇸 Spanien
-        </button>
+<h1>Loge Langoustine</h1>
 
-        <div id="spanien" class="hidden">
+<div class="text">
+    Velkommen til Loge Langoustine.
 
-            <button class="toggle cityBtn" onclick="toggleMenu('barcelona', this)">
-                ▶ Barcelona
-            </button>
+    Her samler vi restauranter, vinbarer og gastronomiske oplevelser fra vores rejser rundt i Danmark og udlandet.
 
-            <div id="barcelona" class="hidden">
-
-                <div class="restaurant"
-                     onclick="zoomTo(41.3785,2.1548,'Enigma')">
-                    Enigma
-                </div>
-
-                <div class="restaurant"
-                     onclick="zoomTo(41.3920,2.1455,'Cocina Hermanos Torres')">
-                    Cocina Hermanos Torres
-                </div>
-
-                <div class="restaurant"
-                     onclick="zoomTo(41.3859,2.1815,'Hoffman')">
-                    Hoffman
-                </div>
-
-            </div>
-
-            <button class="toggle cityBtn" onclick="toggleMenu('llanca', this)">
-                ▶ Llançà
-            </button>
-
-            <div id="llanca" class="hidden">
-
-                <div class="restaurant"
-                     onclick="zoomTo(42.3653,3.1607,'Miramar')">
-                    Miramar
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div id="map"></div>
-
+    Udforsk restauranterne efter land og by.
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<script>
-
-const map = L.map('map').setView([41.3851,2.1734],8);
-
-L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-{
-    attribution:'© OpenStreetMap'
-}
-).addTo(map);
-
-const markers = {};
-
-markers["Enigma"] = L.marker([41.3785,2.1548])
-.addTo(map)
-.bindPopup("<b>Enigma</b><br>Barcelona");
-
-markers["Cocina Hermanos Torres"] = L.marker([41.3920,2.1455])
-.addTo(map)
-.bindPopup("<b>Cocina Hermanos Torres</b><br>Barcelona");
-
-markers["Hoffman"] = L.marker([41.3859,2.1815])
-.addTo(map)
-.bindPopup("<b>Hoffman</b><br>Barcelona");
-
-markers["Miramar"] = L.marker([42.3653,3.1607])
-.addTo(map)
-.bindPopup("<b>Miramar</b><br>Llançà");
-
-function zoomTo(lat,lng,name){
-
-    map.flyTo([lat,lng],15);
-
-    setTimeout(function(){
-        markers[name].openPopup();
-    },500);
-
-}
-
-function toggleMenu(id, button){
-
-    const menu = document.getElementById(id);
-
-    if(menu.style.display === "block"){
-
-        menu.style.display = "none";
-        button.innerHTML = button.innerHTML.replace("▼","▶");
-
-    } else {
-
-        menu.style.display = "block";
-        button.innerHTML = button.innerHTML.replace("▶","▼");
-
-    }
-
-}
-
-function toggleMenu(id, button){
-
-    const menu = document.getElementById(id);
-
-    if(menu.style.display === "block"){
-
-        menu.style.display = "none";
-        button.innerHTML = button.innerHTML.replace("▼","▶");
-
-    } else {
-
-        menu.style.display = "block";
-        button.innerHTML = button.innerHTML.replace("▶","▼");
-
-    }
-
-}
-
-
-if (navigator.geolocation) {
-
-    navigator.geolocation.getCurrentPosition(function(position) {
-
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-
-        L.circle([lat, lng], {
-            radius: 100,
-            color: "#0080ff",
-            fillColor: "#0080ff",
-            fillOpacity: 0.15
-        }).addTo(map);
-
-        L.circleMarker([lat, lng], {
-            radius: 8,
-            color: "#fff",
-            weight: 3,
-            fillColor: "#0080ff",
-            fillOpacity: 1
-        }).addTo(map)
-        .bindPopup("📍 Du er her");
-
-    });
-
-}
-
-</script>
+<a class="button" href="restauranter.html">
+    🍽 Restauranter
+</a>
 
 </body>
 </html>
