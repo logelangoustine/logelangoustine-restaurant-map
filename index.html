@@ -1,10 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Loge Langoustine</title>
+<meta charset="utf-8">
+<title>Loge Langoustine Restaurant Map</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+}
+
+h1{
+    text-align:center;
+    padding:15px;
+}
+
+#map{
+    height:85vh;
+}
+</style>
 </head>
+
 <body>
-    <h1>🦞 Loge Langoustine</h1>
-    <p>Kort over vores restaurantbesøg kommer snart.</p>
+
+<h1>🦞 Loge Langoustine</h1>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+
+var map = L.map('map').setView([41.3851, 2.1734], 8);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:'© OpenStreetMap'
+}).addTo(map);
+
+L.marker([41.3785,2.1548]).addTo(map)
+.bindPopup("<b>Enigma</b><br>Barcelona");
+
+L.marker([41.3875,2.1388]).addTo(map)
+.bindPopup("<b>Cocina Hermanos Torres</b><br>Barcelona");
+
+L.marker([42.3653,3.1607]).addTo(map)
+.bindPopup("<b>Miramar</b><br>Llançà");
+
+L.marker([41.3859,2.1815]).addTo(map)
+.bindPopup("<b>Hoffman</b><br>Barcelona");
+
+</script>
+
 </body>
 </html>
