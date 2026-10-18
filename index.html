@@ -32,7 +32,7 @@ html, body{
 
 .logo{
     text-align:center;
-    margin-bottom:20px;
+    margin-bottom:25px;
 }
 
 .logo img{
@@ -46,6 +46,7 @@ html, body{
 .logo h2{
     margin-top:15px;
     margin-bottom:0;
+    font-size:30px;
 }
 
 .toggle{
@@ -107,6 +108,10 @@ html, body{
         width:100px;
         height:100px;
     }
+
+    .logo h2{
+        font-size:22px;
+    }
 }
 
 </style>
@@ -119,7 +124,7 @@ html, body{
     <div id="sidebar">
 
         <div class="logo">
-            <img src="Loge%20logo%20os.png" alt="Loge Langoustine">
+            <img src="images/logo.png" alt="Loge Langoustine">
             <h2>Loge Langoustine</h2>
         </div>
 
@@ -179,7 +184,7 @@ html, body{
 
 <script>
 
-const map = L.map('map').setView([41.3851,2.1734],8);
+const map = L.map('map').setView([41.3851, 2.1734], 8);
 
 L.tileLayer(
 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -190,23 +195,19 @@ L.tileLayer(
 
 const markers = {};
 
-markers["Enigma"] =
-L.marker([41.3785,2.1548])
+markers["Enigma"] = L.marker([41.3785,2.1548])
 .addTo(map)
 .bindPopup("<b>Enigma</b><br>Barcelona");
 
-markers["Cocina Hermanos Torres"] =
-L.marker([41.3920,2.1455])
+markers["Cocina Hermanos Torres"] = L.marker([41.3920,2.1455])
 .addTo(map)
 .bindPopup("<b>Cocina Hermanos Torres</b><br>Barcelona");
 
-markers["Hoffman"] =
-L.marker([41.3859,2.1815])
+markers["Hoffman"] = L.marker([41.3859,2.1815])
 .addTo(map)
 .bindPopup("<b>Hoffman</b><br>Barcelona");
 
-markers["Miramar"] =
-L.marker([42.3653,3.1607])
+markers["Miramar"] = L.marker([42.3653,3.1607])
 .addTo(map)
 .bindPopup("<b>Miramar</b><br>Llançà");
 
@@ -220,14 +221,12 @@ function zoomTo(lat,lng,name){
 
 }
 
-function toggleMenu(id, button){
-
-    const menu = document.getElementById(id);
+function toggleMenu(id, buttonementById(id);
 
     if(menu.style.display === "block"){
 
         menu.style.display = "none";
-    HTML.replace("▼","▶");
+        button.innerHTML = button.innerHTML.replace("▼","▶");
 
     }else{
 
