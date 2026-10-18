@@ -6,7 +6,7 @@
 
 <title>Loge Langoustine</title>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
 
@@ -14,7 +14,7 @@ html, body{
     margin:0;
     padding:0;
     height:100%;
-    font-family:Arial,sans-serif;
+    font-family:Arial, sans-serif;
 }
 
 #container{
@@ -45,19 +45,18 @@ html, body{
 
 .logo h2{
     margin-top:15px;
-    margin-bottom:0;
     font-size:30px;
 }
 
 .toggle{
     width:100%;
-    text-align:left;
     background:none;
     border:none;
     color:white;
+    text-align:left;
     cursor:pointer;
-    font-size:18px;
     padding:8px 0;
+    font-size:18px;
 }
 
 .toggle:hover{
@@ -67,7 +66,7 @@ html, body{
 .cityBtn{
     margin-left:15px;
     font-size:16px;
-    color:#ddd;
+    color:#ccc;
 }
 
 .restaurant{
@@ -87,9 +86,10 @@ html, body{
 
 #map{
     flex:1;
+    height:100%;
 }
 
-@media(max-width:768px){
+@media (max-width:768px){
 
     #container{
         flex-direction:column;
@@ -134,8 +134,7 @@ html, body{
 
         <div id="spanien" class="hidden">
 
-            <button class="toggle cityBtn"
-                    onclick="toggleMenu('barcelona', this)">
+            <button class="toggle cityBtn" onclick="toggleMenu('barcelona', this)">
                 ▶ Barcelona
             </button>
 
@@ -158,8 +157,7 @@ html, body{
 
             </div>
 
-            <button class="toggle cityBtn"
-                    onclick="toggleMenu('llanca', this)">
+            <button class="toggle cityBtn" onclick="toggleMenu('llanca', this)">
                 ▶ Llançà
             </button>
 
@@ -180,11 +178,11 @@ html, body{
 
 </div>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-const map = L.map('map').setView([41.3851, 2.1734], 8);
+const map = L.map('map').setView([41.3851,2.1734],8);
 
 L.tileLayer(
 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -215,29 +213,22 @@ function zoomTo(lat,lng,name){
 
     map.flyTo([lat,lng],15);
 
-    setTimeout(() => {
+    setTimeout(function(){
         markers[name].openPopup();
     },500);
 
 }
 
-function toggleMenu(id, buttonementById(id);
+function toggleMenu(id, button){
+
+    const menu = document.getElementById(id);
 
     if(menu.style.display === "block"){
 
         menu.style.display = "none";
         button.innerHTML = button.innerHTML.replace("▼","▶");
 
-    }else{
+    } else {
 
         menu.style.display = "block";
-        button.innerHTML = button.innerHTML.replace("▶","▼");
-
-    }
-
-}
-
-</script>
-
-</body>
-</html>
+        button.innerHTML = button.innerHTML.replace
