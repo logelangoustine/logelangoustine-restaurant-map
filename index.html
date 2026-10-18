@@ -165,15 +165,15 @@ fetch('GithubRestauranter.csv')
         const cols = row.split(';');
 
         return {
-            land: cols[0],
-            by: cols[1],
-            restaurant: cols[2],
-            michelin: cols[3],
-            adresse: cols[4],
-            instagram: cols[5],
-            anmeldelse: cols[6],
-            billede: cols[7]
-        };
+    land: cols[0].trim(),
+    by: cols[1].trim(),
+    restaurant: cols[2].trim(),
+    michelin: cols[3].trim(),
+    adresse: cols[4].trim(),
+    instagram: cols[5].trim(),
+    anmeldelse: cols[6].trim(),
+    billede: (cols[7] || "").trim()
+};
 
     });
 
@@ -187,8 +187,10 @@ function buildMenu(){
 
     let html = '';
 
-    const lande =
-    [...new Set(restaurants.map(r => r.land))];
+   const lande =
+[...new Set(
+    restaurants.map(r => r.land.trim())
+)];
 
     lande.forEach((land,landIndex)=>{
 
