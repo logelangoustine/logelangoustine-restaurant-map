@@ -157,6 +157,18 @@ h1{
 
         <div class="info-card">
 
+            ${r.billede ? `
+<img
+    src="${r.billede}"
+    style="
+        width:100%;
+        max-height:450px;
+        object-fit:cover;
+        border-radius:12px;
+        margin-bottom:20px;
+    ">
+` : ''}
+
             <p>
                 Velkommen til vores gastronomiske univers.
             </p>
