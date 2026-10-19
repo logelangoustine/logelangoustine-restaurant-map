@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="da">
+<head>
+
 <link
 rel="stylesheet"
 href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-<head>
+    
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -791,12 +793,12 @@ function showNearbyMap(){
         7
     );
 
-    L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        {
-            attribution:'© OpenStreetMap'
-        }
-    ).addTo(map);
+   L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+        attribution:'© OpenStreetMap'
+    }
+).addTo(map);
 
     restaurants.forEach(r => {
 
