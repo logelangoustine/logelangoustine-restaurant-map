@@ -231,6 +231,8 @@ fetch('GithubRestauranter.csv')
 
         const cols = row.split(';');
 
+        console.log(cols);
+        
         return {
             land: (cols[0] || "").trim(),
             by: (cols[1] || "").trim(),
