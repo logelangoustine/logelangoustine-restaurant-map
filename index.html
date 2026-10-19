@@ -195,6 +195,9 @@ h1{
 let restaurants = [];
 let currentLanguage = "da";
 
+let userLat = null;
+let userLng = null;
+
 fetch('GithubRestauranter.csv')
 .then(response => response.text())
 .then(csv => {
@@ -213,7 +216,8 @@ fetch('GithubRestauranter.csv')
             adresse: (cols[4] || "").trim(),
             instagram: (cols[5] || "").trim(),
             anmeldelse: (cols[6] || "").trim(),
-            billede: (cols[7] || "").trim()
+            billede: (cols[7] || "").trim(),
+            gps: (cols[8] || "").trim()
         };
 
     });
@@ -390,6 +394,52 @@ function setLanguage(lang){
 
 }
 
+function getDistance(gps){
+
+    if(!gps || !userLat || !userLng)
+        return "";
+
+    const coords = gps.split(",");
+
+    const lat = parseFloat(coords[0]);
+    const lng = parseFloat(coords[1]);
+
+    const R = 6371;
+
+    const dLat =
+        (lat - userLat) * Math.PI / 180;
+
+    const dLng =
+        (lng - userLng) * Math.PI / 180;
+
+    const a =
+        Math.sin(dLat/2) *
+        Math.sin(dLat/2) +
+
+        Math.cos(userLat*Math.PI/180) *
+        Math.cos(lat*Math.PI/180) *
+
+        Math.sin(dLng/2) *
+        Math.sin(dLng/2);
+
+    const c =
+        2 * Math.atan2(
+            Math.sqrt(a),
+            Math.sqrt(1-a)
+        );
+
+    const distance = R * c;
+
+    if(distance < 1){
+
+        return Math.round(distance * 1000) + " m væk";
+
+    }
+
+    return distance.toFixed(1) + " km væk";
+
+}
+    
 function showCountry(country){
 
     const countryRestaurants =
@@ -435,6 +485,15 @@ function showCountry(country){
             ` : ''}
 
             <h2>${r.restaurant}</h2>
+
+            ${getDistance(r.gps) ? `
+<p style="
+    color:#bbbbbb;
+    margin-top:5px;
+">
+📍 ${getDistance(r.gps)}
+</p>
+` : ''}
 
             ${r.michelin ? `
             <div style="
@@ -498,6 +557,15 @@ function showCountry(country){
             ` : ''}
 
             <h2>${r.restaurant}</h2>
+
+            ${getDistance(r.gps) ? `
+<p style="
+    color:#bbbbbb;
+    margin-top:5px;
+">
+📍 ${getDistance(r.gps)}
+</p>
+` : ''}
 
             ${r.michelin ? `
             <div style="font-size:24px;">
