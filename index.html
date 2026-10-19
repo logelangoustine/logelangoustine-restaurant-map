@@ -198,6 +198,26 @@ let currentLanguage = "da";
 let userLat = null;
 let userLng = null;
 
+    navigator.geolocation.getCurrentPosition(
+
+    position => {
+
+        userLat = position.coords.latitude;
+        userLng = position.coords.longitude;
+
+        console.log("GPS fundet");
+
+    },
+
+    error => {
+
+        console.log("GPS ikke tilladt");
+
+    }
+
+);
+
+
 fetch('GithubRestauranter.csv')
 .then(response => response.text())
 .then(csv => {
