@@ -242,9 +242,9 @@ function buildMenu(){
 
             html += `
             <button class="toggle city"
-            onclick="toggleMenu('by${landIndex}${byIndex}', this)">
-                ▶ ${by}
-            </button>
+onclick="showCity('${by}')">
+    ${by}
+</button>
 
             <div id="by${landIndex}${byIndex}"
                  class="hidden">
@@ -354,8 +354,6 @@ function setLanguage(lang){
 
 }
 
-function showRestaurant(name){
-
     function showCity(city){
 
     const cityRestaurants =
@@ -369,6 +367,7 @@ function showRestaurant(name){
                 ${cityRestaurants.length} steder
             </p>
         </div>
+
         <br>
     `;
 
@@ -395,9 +394,7 @@ function showRestaurant(name){
                 ">
             ` : ''}
 
-            <h2>
-                ${r.restaurant}
-            </h2>
+            <h2>${r.restaurant}</h2>
 
             ${r.michelin ? `
             <div style="font-size:24px;">
@@ -408,12 +405,12 @@ function showRestaurant(name){
         </div>
 
         `;
-
     });
 
-    document.getElementById('content').innerHTML =
-        html;
+    document.getElementById('content').innerHTML = html;
 }
+    
+function showRestaurant(name){
 
     const r =
     restaurants.find(x =>
