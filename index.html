@@ -229,8 +229,9 @@ function buildMenu(){
     let html = '';
 
     const lande = [...new Set(
-        restaurants.map(r => r.land)
-    )];
+    restaurants.map(r => r.land)
+)].sort((a, b) => a.localeCompare(b, 'da'));
+
 
     lande.forEach((land,landIndex)=>{
 
@@ -265,13 +266,13 @@ function buildMenu(){
 <div id="land${landIndex}" class="hidden">
 `;
 
-        const byer = [...new Set(
+       const byer = [...new Set(
 
-            restaurants
-            .filter(r => r.land === land)
-            .map(r => r.by)
+    restaurants
+    .filter(r => r.land === land)
+    .map(r => r.by)
 
-        )];
+)].sort((a, b) => a.localeCompare(b, 'da'));
 
         byer.forEach((by,byIndex)=>{
 
@@ -406,7 +407,11 @@ function showCountry(country){
         <br>
     `;
 
-    countryRestaurants.forEach(r => {
+    countryRestaurants
+.sort((a, b) =>
+    a.restaurant.localeCompare(b.restaurant, 'da'))
+.forEach(r => {
+
 
         html += `
 
@@ -466,7 +471,10 @@ function showCountry(country){
         <br>
     `;
 
-    cityRestaurants.forEach(r => {
+    cityRestaurants
+.sort((a, b) =>
+    a.restaurant.localeCompare(b.restaurant, 'da'))
+.forEach(r => {
 
         html += `
 
