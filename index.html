@@ -230,8 +230,6 @@ fetch('GithubRestauranter.csv')
     restaurants = rows.map(row => {
 
         const cols = row.split(';');
-
-        console.log(cols);
         
         return {
             land: (cols[0] || "").trim(),
@@ -245,13 +243,6 @@ fetch('GithubRestauranter.csv')
             gps: (cols[8] || "").trim()
 };
 
-console.log("Restaurant:", cols[2]);
-console.log("Billede:", cols[7]);
-console.log("GPS:", cols[8]);
-
-return obj;
-
-    });
 
     buildMenu();
 
@@ -510,16 +501,6 @@ function showCountry(country){
         
             <h2>${r.restaurant}</h2>
 
-${getDistance(r.gps) ? `
-<p style="
-    color:#bbbbbb;
-    margin-top:5px;
-    font-size:16px;
-">
-    📍 ${getDistance(r.gps)}
-</p>
-` : ''}
-
             ${getDistance(r.gps) ? `
 <p style="
     color:#bbbbbb;
@@ -556,7 +537,6 @@ ${getDistance(r.gps) ? `
     <h1>${city}</h1>
     <br>
 `;
-``
 
     cityRestaurants
 .sort((a, b) =>
@@ -585,10 +565,6 @@ ${getDistance(r.gps) ? `
             ` : ''}
 
             <h2>${r.restaurant}</h2>
-
-<p style="color:red;">
-GPS: ${r.gps}
-</p>
 
             ${getDistance(r.gps) ? `
 <p style="
