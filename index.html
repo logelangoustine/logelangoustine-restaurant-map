@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="da">
+<link
+rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -271,6 +274,22 @@ function buildMenu(){
     const menu = document.getElementById('menu');
 
     let html = '';
+
+    html += `
+<div
+    style="
+        padding:10px 0;
+        margin-bottom:15px;
+        color:#7cc8ff;
+        cursor:pointer;
+        font-weight:bold;
+    "
+    onclick="showNearbyMap()">
+
+    📍 Se hvad der er i nærheden
+
+</div>
+`;
 
     const lande = [...new Set(
     restaurants.map(r => r.land)
@@ -750,7 +769,67 @@ function showRestaurant(name){
 
 }
 
+function showNearbyMap(){
+
+    let html = `
+        <h1>Se hvad der er i nærheden</h1>
+
+        <div id="map"
+            style="
+                width:100%;
+                height:700px;
+                border-radius:12px;
+                overflow:hidden;
+            ">
+        </div>
+    `;
+
+    document.getElementById('content').innerHTML = html;
+
+    const map = L.map('map').setView(
+        [55.6761, 12.5683],
+        7
+    );
+
+    L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+            attribution:'© OpenStreetMap'
+        }
+    ).addTo(map);
+
+    restaurants.forEach(r => {
+
+        if(!r.gps) return;
+
+        const coords =
+            r.gps.split(',');
+
+        const lat =
+            parseFloat(coords[0]);
+
+        const lng =
+            parseFloat(coords[1]);
+
+        L.marker([lat,lng])
+            .addTo(map)
+            .bindPopup(
+                `
+                <strong>${r.restaurant}</strong>
+                <br>
+                ${r.by}
+                <br>
+                ${getDistance(r.gps)}
+                `
+            );
+
+    });
+
+}
+
 </script>
 
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    
 </body>
 </html>
