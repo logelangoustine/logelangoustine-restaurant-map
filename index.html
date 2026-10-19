@@ -242,8 +242,14 @@ fetch('GithubRestauranter.csv')
             instagram: (cols[5] || "").trim(),
             anmeldelse: (cols[6] || "").trim(),
             billede: (cols[7] || "").trim(),
-            gps: cols[cols.length - 1].trim()
-        };
+            gps: (cols[8] || "").trim()
+};
+
+console.log("Restaurant:", cols[2]);
+console.log("Billede:", cols[7]);
+console.log("GPS:", cols[8]);
+
+return obj;
 
     });
 
