@@ -479,10 +479,47 @@ function getDistance(gps){
     return distance.toFixed(1) + " km væk";
 
 }
+
+    function getDistanceValue(gps){
+
+    if(!gps || !userLat || !userLng)
+        return 999999;
+
+    const coords = gps.split(",");
+
+    const lat = parseFloat(coords[0]);
+    const lng = parseFloat(coords[1]);
+
+    const R = 6371;
+
+    const dLat =
+        (lat - userLat) * Math.PI / 180;
+
+    const dLng =
+        (lng - userLng) * Math.PI / 180;
+
+    const a =
+        Math.sin(dLat/2) *
+        Math.sin(dLat/2) +
+
+        Math.cos(userLat*Math.PI/180) *
+        Math.cos(lat*Math.PI/180) *
+
+        Math.sin(dLng/2) *
+        Math.sin(dLng/2);
+
+    const c =
+        2 * Math.atan2(
+            Math.sqrt(a),
+            Math.sqrt(1-a)
+        );
+
+    return R * c;
+}
     
 function showCountry(country){
 
-    const countryRestaurants =
+    const estaurants =
         restaurants.filter(r => r.land === country);
 
    let html = `
@@ -491,9 +528,19 @@ function showCountry(country){
 `;
 
     countryRestaurants
-.sort((a, b) =>
-    a.restaurant.localeCompare(b.restaurant, 'da'))
+.sort((a, b) => {
+
+    const distA =
+        getDistanceValue(a.gps);
+
+    const distB =
+        getDistanceValue(b.gps);
+
+    return distA - distB;
+
+})
 .forEach(r => {
+``
 
 
         html += `
@@ -558,7 +605,8 @@ function showCountry(country){
 
     cityRestaurants
 .sort((a, b) =>
-    a.restaurant.localeCompare(b.restaurant, 'da'))
+    getDistanceValue(a.gps) -
+    getDistanceValue(b.gps))
 .forEach(r => {
 
         html += `
