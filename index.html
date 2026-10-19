@@ -355,22 +355,41 @@ onclick="showCity('${by}')">
 
 }
 
-function toggleMenu(id,btn){
+function toggleMenu(id, btn){
+
+    document.querySelectorAll('[id^="land"]').forEach(el => {
+
+        if(el.id !== id){
+
+            el.style.display = "none";
+
+        }
+
+    });
+
+    document.querySelectorAll('#menu span').forEach(el => {
+
+        if(
+            el.innerHTML === '▼' &&
+            el !== btn
+        ){
+            el.innerHTML = '▶';
+        }
+
+    });
 
     const element =
         document.getElementById(id);
 
-    if(element.style.display==="block"){
+    if(element.style.display === "block"){
 
-        element.style.display="none";
-        btn.innerHTML =
-            btn.innerHTML.replace("▼","▶");
+        element.style.display = "none";
+        btn.innerHTML = "▶";
 
     }else{
 
-        element.style.display="block";
-        btn.innerHTML =
-            btn.innerHTML.replace("▶","▼");
+        element.style.display = "block";
+        btn.innerHTML = "▼";
 
     }
 
