@@ -356,6 +356,65 @@ function setLanguage(lang){
 
 function showRestaurant(name){
 
+    function showCity(city){
+
+    const cityRestaurants =
+        restaurants.filter(r => r.by === city);
+
+    let html = `
+        <h1>${city}</h1>
+
+        <div class="info-card">
+            <p>
+                ${cityRestaurants.length} steder
+            </p>
+        </div>
+        <br>
+    `;
+
+    cityRestaurants.forEach(r => {
+
+        html += `
+
+        <div class="info-card"
+             style="
+                margin-bottom:20px;
+                cursor:pointer;
+             "
+             onclick="showRestaurant('${r.restaurant}')">
+
+            ${r.billede ? `
+            <img
+                src="${r.billede}"
+                style="
+                    width:100%;
+                    max-height:250px;
+                    object-fit:cover;
+                    border-radius:12px;
+                    margin-bottom:15px;
+                ">
+            ` : ''}
+
+            <h2>
+                ${r.restaurant}
+            </h2>
+
+            ${r.michelin ? `
+            <div style="font-size:24px;">
+                ${"⭐".repeat(parseInt(r.michelin))}
+            </div>
+            ` : ''}
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById('content').innerHTML =
+        html;
+}
+
     const r =
     restaurants.find(x =>
         x.restaurant === name);
