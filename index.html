@@ -789,9 +789,32 @@ function showNearbyMap(){
     document.getElementById('content').innerHTML = html;
 
     const map = L.map('map').setView(
-        [55.6761, 12.5683],
-        7
+    [userLat || 55.6761,
+     userLng || 12.5683],
+    userLat ? 11 : 7
+);
+
+    if(userLat && userLng){
+
+    map.setView(
+        [userLat, userLng],
+        11
     );
+
+    L.circleMarker(
+        [userLat, userLng],
+        {
+            radius:10,
+            fillColor:"#0080ff",
+            color:"#ffffff",
+            weight:2,
+            fillOpacity:1
+        }
+    )
+    .addTo(map)
+    .bindPopup("📍 Du er her");
+
+}
 
    L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
