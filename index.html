@@ -208,12 +208,13 @@ let userLng = null;
         userLng = position.coords.longitude;
 
         console.log("GPS fundet");
+        console.log(userLat, userLng);
 
     },
 
     error => {
 
-        console.log("GPS ikke tilladt");
+        console.log(error);
 
     }
 
@@ -467,17 +468,10 @@ function showCountry(country){
     const countryRestaurants =
         restaurants.filter(r => r.land === country);
 
-    let html = `
-        <h1>${country}</h1>
-
-        <div class="info-card">
-            <p>
-                ${countryRestaurants.length} steder
-            </p>
-        </div>
-
-        <br>
-    `;
+   let html = `
+    <h1>${country}</h1>
+    <br>
+`;
 
     countryRestaurants
 .sort((a, b) =>
@@ -541,16 +535,10 @@ function showCountry(country){
         restaurants.filter(r => r.by === city);
 
     let html = `
-        <h1>${city}</h1>
-
-        <div class="info-card">
-            <p>
-                ${cityRestaurants.length} steder
-            </p>
-        </div>
-
-        <br>
-    `;
+    <h1>${city}</h1>
+    <br>
+`;
+``
 
     cityRestaurants
 .sort((a, b) =>
