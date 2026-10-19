@@ -229,22 +229,23 @@ fetch('GithubRestauranter.csv')
 
     restaurants = rows.map(row => {
 
-        const cols = row.split(';');
-        
-        return {
-            land: (cols[0] || "").trim(),
-            by: (cols[1] || "").trim(),
-            restaurant: (cols[2] || "").trim(),
-            michelin: (cols[3] || "").trim(),
-            adresse: (cols[4] || "").trim(),
-            instagram: (cols[5] || "").trim(),
-            anmeldelse: (cols[6] || "").trim(),
-            billede: (cols[7] || "").trim(),
-            gps: (cols[8] || "").trim()
-};
+    const cols = row.split(';');
 
+    return {
+        land: (cols[0] || "").trim(),
+        by: (cols[1] || "").trim(),
+        restaurant: (cols[2] || "").trim(),
+        michelin: (cols[3] || "").trim(),
+        adresse: (cols[4] || "").trim(),
+        instagram: (cols[5] || "").trim(),
+        anmeldelse: (cols[6] || "").trim(),
+        billede: (cols[7] || "").trim(),
+        gps: (cols[8] || "").trim()
+    };
 
-    buildMenu();
+});
+
+buildMenu();
 
 });
 
