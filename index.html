@@ -242,7 +242,7 @@ fetch('GithubRestauranter.csv')
             instagram: (cols[5] || "").trim(),
             anmeldelse: (cols[6] || "").trim(),
             billede: (cols[7] || "").trim(),
-            gps: (cols[8] || "").trim()
+            gps: cols[cols.length - 1].trim()
         };
 
     });
@@ -502,6 +502,8 @@ function showCountry(country){
                 ">
             ` : ''}
 
+            console.log(r.gps);
+        
             <h2>${r.restaurant}</h2>
 
 <p style="color:red;">
