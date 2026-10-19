@@ -225,11 +225,17 @@ let userLng = null;
                 title.textContent;
 
             if(
-                [...new Set(restaurants.map(r => r.land))]
-                .includes(pageName)
-            ){
-                showCountry(pageName);
-            }
+    [...new Set(restaurants.map(r => r.land))]
+    .includes(pageName)
+){
+    showCountry(pageName);
+}
+
+if(
+    pageName === "Se hvad der er i nærheden"
+){
+    showNearbyMap();
+}
 
         }
 
@@ -783,7 +789,6 @@ function showNearbyMap(){
 
     return;
 }
-``
     
     let html = `
         <h1>Se hvad der er i nærheden</h1>
