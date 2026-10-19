@@ -774,6 +774,17 @@ function showRestaurant(name){
 
 function showNearbyMap(){
 
+    if(!userLat || !userLng){
+
+    document.getElementById('content').innerHTML = `
+        <h1>Se hvad der er i nærheden</h1>
+        <p>Finder din placering...</p>
+    `;
+
+    return;
+}
+``
+    
     let html = `
         <h1>Se hvad der er i nærheden</h1>
 
