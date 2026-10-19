@@ -210,6 +210,23 @@ let userLng = null;
         console.log("GPS fundet");
         console.log(userLat, userLng);
 
+        const title =
+            document.querySelector("#content h1");
+
+        if(title){
+
+            const pageName =
+                title.textContent;
+
+            if(
+                [...new Set(restaurants.map(r => r.land))]
+                .includes(pageName)
+            ){
+                showCountry(pageName);
+            }
+
+        }
+
     },
 
     error => {
