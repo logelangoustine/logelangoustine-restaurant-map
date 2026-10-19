@@ -665,27 +665,28 @@ ${r.billede ? `
              "
              onclick="showRestaurant('${r.restaurant}')">
 
-            ${r.billede ? `
-            <img
-                src="${r.billede}"
-                style="
-                    width:100%;
-                    max-height:250px;
-                    object-fit:cover;
-                    border-radius:12px;
-                    margin-bottom:15px;
-                ">
-            ` : ''}
-
             <h2>${r.restaurant}</h2>
 
-            ${getDistance(r.gps) ? `
+${getDistance(r.gps) ? `
 <p style="
     color:#bbbbbb;
     margin-top:5px;
+    margin-bottom:15px;
 ">
 📍 ${getDistance(r.gps)}
 </p>
+` : ''}
+
+${r.billede ? `
+<img
+    src="${r.billede}"
+    style="
+        width:100%;
+        max-height:250px;
+        object-fit:cover;
+        border-radius:12px;
+        margin-bottom:15px;
+    ">
 ` : ''}
 
             ${r.michelin ? `
