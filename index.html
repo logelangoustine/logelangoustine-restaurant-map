@@ -519,7 +519,7 @@ function getDistance(gps){
     
 function showCountry(country){
 
-    const estaurants =
+    const countryRestaurants =
         restaurants.filter(r => r.land === country);
 
    let html = `
@@ -540,8 +540,6 @@ function showCountry(country){
 
 })
 .forEach(r => {
-``
-
 
         html += `
 
