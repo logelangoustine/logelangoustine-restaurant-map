@@ -221,14 +221,36 @@ function buildMenu(){
 
     lande.forEach((land,landIndex)=>{
 
-        html += `
-        <button class="toggle"
-        onclick="toggleMenu('land${landIndex}', this)">
-            ▶ ${land}
-        </button>
+       html += `
+<div style="
+    display:flex;
+    align-items:center;
+">
 
-        <div id="land${landIndex}" class="hidden">
-        `;
+    <span
+        style="
+            cursor:pointer;
+            width:20px;
+            display:inline-block;
+        "
+        onclick="toggleMenu('land${landIndex}', this)">
+        ▶
+    </span>
+
+    <span
+        style="
+            cursor:pointer;
+            padding-left:8px;
+            font-size:18px;
+        "
+        onclick="showCountry('${land}')">
+        ${land}
+    </span>
+
+</div>
+
+<div id="land${landIndex}" class="hidden">
+`;
 
         const byer = [...new Set(
 
@@ -354,6 +376,66 @@ function setLanguage(lang){
 
 }
 
+function showCountry(country){
+
+    const countryRestaurants =
+        restaurants.filter(r => r.land === country);
+
+    let html = `
+        <h1>${country}</h1>
+
+        <div class="info-card">
+            <p>
+                ${countryRestaurants.length} steder
+            </p>
+        </div>
+
+        <br>
+    `;
+
+    countryRestaurants.forEach(r => {
+
+        html += `
+
+        <div class="info-card"
+             style="
+                margin-bottom:20px;
+                cursor:pointer;
+             "
+             onclick="showRestaurant('${r.restaurant}')">
+
+            ${r.billede ? `
+            <img
+                src="${r.billede}"
+                style="
+                    width:100%;
+                    max-height:250px;
+                    object-fit:cover;
+                    border-radius:12px;
+                    margin-bottom:15px;
+                ">
+            ` : ''}
+
+            <h2>${r.restaurant}</h2>
+
+            ${r.michelin ? `
+            <div style="
+                font-size:24px;
+                margin-bottom:10px;
+            ">
+                ${"⭐".repeat(parseInt(r.michelin))}
+            </div>
+            ` : ''}
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById('content').innerHTML = html;
+}
+    
     function showCity(city){
 
     const cityRestaurants =
