@@ -502,6 +502,14 @@ function showCountry(country){
 
             <h2>${r.restaurant}</h2>
 
+<p style="color:red;">
+GPS: ${r.gps}
+</p>
+
+<p style="color:yellow;">
+Distance: ${getDistance(r.gps)}
+</p>
+
             ${getDistance(r.gps) ? `
 <p style="
     color:#bbbbbb;
@@ -567,6 +575,14 @@ function showCountry(country){
             ` : ''}
 
             <h2>${r.restaurant}</h2>
+
+<p style="color:red;">
+GPS: ${r.gps}
+</p>
+
+<p style="color:yellow;">
+Distance: ${getDistance(r.gps)}
+</p>
 
             ${getDistance(r.gps) ? `
 <p style="
