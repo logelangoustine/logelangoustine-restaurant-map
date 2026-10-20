@@ -508,29 +508,30 @@ function setLanguage(lang){
 
     }
 
+    buildMenu();
+
+    if(currentPage.type === "country"){
+        showCountry(currentPage.value);
+        return;
+    }
+
+    if(currentPage.type === "city"){
+        showCity(currentPage.value);
+        return;
+    }
+
+    if(currentPage.type === "restaurant"){
+        showRestaurant(currentPage.value);
+        return;
+    }
+
+    if(currentPage.type === "nearby"){
+        showNearbyMap();
+        return;
+    }
+
 }
 
-buildMenu();
-
-if(currentPage.type === "country"){
-    showCountry(currentPage.value);
-    return;
-}
-
-if(currentPage.type === "city"){
-    showCity(currentPage.value);
-    return;
-}
-
-if(currentPage.type === "restaurant"){
-    showRestaurant(currentPage.value);
-    return;
-}
-
-if(currentPage.type === "nearby"){
-    showNearbyMap();
-    return;
-}
 
 
 function getDistance(gps){
