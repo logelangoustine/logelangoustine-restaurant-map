@@ -200,6 +200,28 @@ h1{
 
 let restaurants = [];
 let currentLanguage = "da";
+let currentPage = "home";
+
+
+function t(da, en){
+    return currentLanguage === "da" ? da : en;
+}
+
+function distanceText(value){
+
+    if(value < 1){
+        return Math.round(value * 1000) +
+            (currentLanguage === "da"
+                ? " m væk"
+                : " m away");
+    }
+
+    return value.toFixed(1) +
+        (currentLanguage === "da"
+            ? " km væk"
+            : " km away");
+}
+
 
 let userLat = null;
 let userLng = null;
@@ -295,7 +317,11 @@ function buildMenu(){
     "
     onclick="showNearbyMap()">
 
-    📍 Se hvad der er i nærheden
+    📍 ${t(
+    "Se hvad der er i nærheden",
+    "What's nearby"
+)}
+
 
 </div>
 `;
@@ -517,13 +543,8 @@ function getDistance(gps){
 
     const distance = R * c;
 
-    if(distance < 1){
+    return distanceText(distance);
 
-        return Math.round(distance * 1000) + " m væk";
-
-    }
-
-    return distance.toFixed(1) + " km væk";
 
 }
 
@@ -566,8 +587,14 @@ function getDistance(gps){
     
 function showCountry(country){
 
+    currentPage = {
+        type: "country",
+        value: country
+    };
+
     const countryRestaurants =
         restaurants.filter(r => r.land === country);
+
 
    let html = `
     <h1>${country}</h1>
@@ -642,8 +669,14 @@ ${r.billede ? `
     
     function showCity(city){
 
+    currentPage = {
+        type: "city",
+        value: city
+    };
+
     const cityRestaurants =
         restaurants.filter(r => r.by === city);
+
 
     let html = `
     <h1>${city}</h1>
@@ -705,9 +738,15 @@ ${r.billede ? `
     
 function showRestaurant(name){
 
+    currentPage = {
+        type: "restaurant",
+        value: name
+    };
+
     const r =
-    restaurants.find(x =>
-        x.restaurant === name);
+        restaurants.find(x =>
+            x.restaurant === name);
+
 
     const addressLabel =
         currentLanguage === "da"
@@ -783,11 +822,24 @@ function showRestaurant(name){
 
 function showNearbyMap(){
 
+    currentPage = {
+        type: "nearby"
+    };
+
     if(!userLat || !userLng){
 
+
     document.getElementById('content').innerHTML = `
-        <h1>Se hvad der er i nærheden</h1>
-        <p>Finder din placering...</p>
+        <h1>${t(
+    "Se hvad der er i nærheden",
+    "What's nearby"
+)}</h1>
+
+<p>${t(
+    "Finder din placering...",
+    "Finding your location..."
+)}</p>
+
     `;
 
     return;
@@ -832,7 +884,13 @@ function showNearbyMap(){
         }
     )
     .addTo(map)
-    .bindPopup("📍 Du er her");
+    .bindPopup(
+    t(
+        "📍 Du er her",
+        "📍 You are here"
+    )
+);
+
 
 }
 
