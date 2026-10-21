@@ -231,6 +231,7 @@ let currentPage = {
 };
 
 let previousPage = null;
+let previousScrollY = 0;
 
 function t(da, en){
     return currentLanguage === "da" ? da : en;
@@ -790,9 +791,12 @@ ${r.billede ? `
     
 function showRestaurant(name){
 
+    previousScrollY = window.scrollY;
+
     previousPage = {...currentPage};
-    
+
     currentPage = {
+
         type: "restaurant",
         value: name
     };
@@ -911,6 +915,16 @@ function closeRestaurant(){
     if(previousPage.type === "nearby"){
         showNearbyMap();
     }
+
+    setTimeout(() => {
+
+        window.scrollTo(
+            0,
+            previousScrollY
+        );
+
+    }, 50);
+
 }
 
 
