@@ -6,7 +6,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
-    
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Chango&display=swap" rel="stylesheet">
+
 <link
 rel="stylesheet"
 href="https://unpkg.com/leaflet/dist/leaflet.css"
@@ -39,6 +44,7 @@ body{
     min-height:100vh;
 }
 
+    
 #sidebar{
     width:350px;
     background:#1a1a1a;
@@ -131,6 +137,10 @@ h1{
     margin-top:0;
 }
 
+.welcome-title{
+    font-family:'Chango', cursive;
+}
+
 .info-card{
     background:#222;
     padding:20px;
@@ -186,7 +196,9 @@ h1{
 
     <div id="content">
 
-        <h1>Velkommen til Loge Langoustine</h1>
+        <h1 class="welcome-title">
+    Velkommen til Loge Langoustine
+</h1>
 
         <div class="info-card">
 
@@ -492,7 +504,9 @@ function setLanguage(lang){
 
         document.getElementById('content').innerHTML = `
 
-        <h1>Welcome to Loge Langoustine</h1>
+        <h1 class="welcome-title">
+    Welcome to Loge Langoustine
+</h1>
 
         <div class="info-card">
 
