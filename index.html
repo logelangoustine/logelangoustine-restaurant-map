@@ -2,6 +2,11 @@
 <html lang="da">
 <head>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
+    
 <link
 rel="stylesheet"
 href="https://unpkg.com/leaflet/dist/leaflet.css"
@@ -52,6 +57,11 @@ body{
     margin-bottom:20px;
 }
 
+.country-name{
+    font-family:'Cinzel', serif;
+    letter-spacing:1px;
+}
+    
 .logo img{
     width:180px;
     height:180px;
@@ -353,14 +363,15 @@ function buildMenu(){
     </span>
 
     <span
-        style="
-            cursor:pointer;
-            padding-left:8px;
-            font-size:18px;
-        "
-        onclick="showCountry('${land}')">
-        ${land}
-    </span>
+    class="country-name"
+    style="
+        cursor:pointer;
+        padding-left:8px;
+        font-size:18px;
+    "
+    onclick="showCountry('${land}')">
+    ${land}
+</span>
 
 </div>
 
