@@ -65,7 +65,7 @@ body{
 
 .country-name{
     font-family:'Cinzel', serif;
-    letter-spacing:1px;
+    ter-spacing:1px;
 }
     
 .logo img{
@@ -230,7 +230,7 @@ let currentPage = {
     type: "home"
 };
 
-
+let previousPage = null;
 
 function t(da, en){
     return currentLanguage === "da" ? da : en;
@@ -790,6 +790,8 @@ ${r.billede ? `
     
 function showRestaurant(name){
 
+    previousPage = {...currentPage};
+    
     currentPage = {
         type: "restaurant",
         value: name
@@ -866,11 +868,52 @@ function showRestaurant(name){
 </p>
 ` : ''}
 
-        </div>
+<div style="
+    display:flex;
+    justify-content:flex-end;
+    margin-top:25px;
+">
 
-    `;
+    <button
+        onclick="closeRestaurant()"
+        style="
+            background:#333;
+            color:white;
+            border:none;
+            border-radius:8px;
+            padding:10px 16px;
+            cursor:pointer;
+        ">
+
+        ✕ Luk
+
+    </button>
+
+</div>
+
+</div>
+`;
 
 }
+
+function closeRestaurant(){
+
+    if(!previousPage) return;
+
+    if(previousPage.type === "country"){
+        showCountry(previousPage.value);
+    }
+
+    if(previousPage.type === "city"){
+        showCity(previousPage.value);
+    }
+
+    if(previousPage.type === "nearby"){
+        showNearbyMap();
+    }
+}
+
+
 
 function showNearbyMap(){
 
