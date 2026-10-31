@@ -1,49 +1,22 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chango&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
+    <title>Loge Langoustine</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
 
-<link href="https://fonts.googleapis.com/css2?family=Chango&display=swap" rel="stylesheet">
-
-<link
-rel="stylesheet"
-href="https://unpkg.com/leaflet/dist/leaflet.css"
-/>
-    
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Loge Langoustine</title>
-
-<link rel="icon" type="image/png" href="images/logo.png">
-<link rel="apple-touch-icon" href="images/logo.png">
-
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "z16jbeycc8");
-</script>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3WF3C48BJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-Q3WF3C48BJ');
-</script>
-    
-<style>
+    <style>
 
 *{
     box-sizing:border-box;
@@ -61,7 +34,7 @@ body{
     min-height:100vh;
 }
 
-    
+
 #sidebar{
     width:350px;
     background:#1a1a1a;
@@ -84,7 +57,7 @@ body{
     font-family:'Cinzel', serif;
     letter-spacing:1px;
 }
-    
+
 .logo img{
     width:180px;
     height:180px;
@@ -115,6 +88,10 @@ body{
 
 .language-switch button:hover{
     background:#333;
+}
+
+.mobile-menu-toggle{
+    display:none;
 }
 
 .toggle{
@@ -154,12 +131,14 @@ h1{
     margin-top:0;
 }
 
-.welcome-title{
-    font-family:'Chango', cursive;
-    font-size:clamp(42px, 5vw, 56px);
-    line-height:1.1;
+.home-brand{
+    display:block;
+    width:min(100%, 900px);
+    height:auto;
+    margin-top:-83px;
+    margin-bottom:28px;
 }
-    
+
 .info-card{
     background:#222;
     padding:20px;
@@ -171,6 +150,257 @@ h1{
     color:#7cc8ff;
 }
 
+.review-teasers{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap:16px;
+    max-width:1100px;
+    margin-top:32px;
+}
+
+.review-teaser{
+    display:flex;
+    flex-direction:column;
+    background:#222;
+    border:1px solid #333;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.review-teaser-image-frame{
+    position:relative;
+    display:block;
+    width:100%;
+    height:190px;
+    overflow:hidden;
+    background:#111;
+}
+
+.review-teaser-image{
+    position:absolute;
+    inset:0;
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transition:opacity 900ms ease;
+}
+
+.review-teaser-image.is-visible{
+    opacity:1;
+}
+
+@media(prefers-reduced-motion:reduce){
+    .review-teaser-image{
+        transition:none;
+    }
+}
+
+.review-teaser-content{
+    display:flex;
+    flex:1;
+    flex-direction:column;
+    align-items:flex-start;
+    padding:18px;
+}
+
+.review-teaser h2{
+    margin:0 0 8px;
+}
+
+.review-teaser-meta{
+    margin:0;
+    color:#bbb;
+    font-size:14px;
+}
+
+.review-teaser p{
+    line-height:1.55;
+    white-space:pre-line;
+}
+
+.review-teaser-excerpt{
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    line-clamp:2;
+    overflow:hidden;
+}
+
+.review-teaser button{
+    margin-top:auto;
+    padding:9px 14px;
+    border:1px solid #555;
+    border-radius:8px;
+    background:#333;
+    color:white;
+    cursor:pointer;
+}
+
+.review-teaser button:hover{
+    background:#444;
+}
+
+.review-heading{
+    font-size:16px;
+    font-family:'Source Sans Pro', sans-serif;
+    font-weight:900;
+}
+
+.review-text{
+    font-family:'Source Sans Pro', sans-serif;
+}
+
+.review-score{
+    display:inline-block;
+    white-space:nowrap;
+}
+
+.review-info{
+    position:relative;
+    display:inline-block;
+    margin-left:6px;
+    font-family:Arial,sans-serif;
+    font-size:14px;
+    font-weight:normal;
+    vertical-align:middle;
+}
+
+.review-info-button{
+    display:inline-flex;
+    width:17px;
+    height:17px;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+    border:1px solid #cfcfcf;
+    border-radius:50%;
+    background:transparent;
+    color:#cfcfcf;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:bold;
+    line-height:1;
+}
+
+.review-info-box{
+    position:absolute;
+    top:calc(100% + 8px);
+    left:0;
+    z-index:10;
+    display:none;
+    width:380px;
+    max-width:calc(100vw - 48px);
+    max-height:70vh;
+    overflow-y:auto;
+    padding:12px;
+    border:1px solid #444;
+    border-radius:8px;
+    background:#333;
+    box-shadow:0 4px 12px rgba(0,0,0,.4);
+    color:white;
+    font-size:14px;
+    font-weight:normal;
+    line-height:1.4;
+    white-space:normal;
+}
+
+@media(max-width:600px){
+    .review-teasers{
+        grid-template-columns:1fr;
+        gap:14px;
+    }
+
+    .review-teaser-image-frame{
+        height:170px;
+    }
+
+    .review-teaser-content{
+        padding:16px;
+    }
+
+    .review-teaser button{
+        width:100%;
+        min-height:44px;
+    }
+}
+
+.review-info:hover .review-info-box,
+.review-info:focus-within .review-info-box{
+    display:block;
+}
+
+.restaurant-map-popup .review-info-box{
+    left:auto;
+    right:0;
+    width:180px;
+    max-width:calc(100vw - 80px);
+    max-height:220px;
+}
+
+.restaurant-info-popup .leaflet-popup-content{
+    overflow-x:hidden;
+}
+
+.route-navigation-dialog{
+    width:min(520px, 100%);
+    height:min(900px, 94vh);
+    min-height:360px;
+}
+
+.route-navigation-map{
+    flex:1;
+    min-height:0;
+    position:relative;
+    border-radius:14px;
+    overflow:hidden;
+    isolation:isolate;
+}
+
+.route-navigation-canvas{
+    position:absolute;
+    inset:0;
+}
+
+.route-navigation-map.route-guidance-active .route-navigation-canvas{
+    transform:perspective(1000px) rotateX(23deg) scale(1.24);
+    transform-origin:center 72%;
+}
+
+.route-navigation-canvas .leaflet-control-zoom{
+    display:none;
+}
+
+.route-link{
+    padding:0;
+    border:0;
+    background:none;
+    color:#7cc8ff;
+    cursor:pointer;
+    font:inherit;
+    text-decoration:underline;
+}
+
+@media(max-width:600px){
+    #route-modal{
+        padding:0 !important;
+    }
+
+    .route-navigation-dialog{
+        width:100%;
+        height:100vh;
+        height:100dvh;
+        min-height:0;
+        max-height:none !important;
+        border-radius:0 !important;
+    }
+
+    .route-navigation-map{
+        border-radius:0;
+    }
+}
+
 @media(max-width:900px){
 
     #container{
@@ -179,65 +409,167 @@ h1{
 
     #sidebar{
         width:100%;
+        position:sticky;
+        top:0;
+        z-index:1000;
+        padding:8px 14px;
+        overflow:visible;
+        border-right:0;
+        border-bottom:1px solid #333;
+    }
+
+    .sidebar-header{
+        display:flex;
+        min-height:56px;
+        align-items:center;
+        gap:12px;
+    }
+
+    .sidebar-header .logo{
+        flex:0 0 56px;
+        width:56px;
+        margin:0;
+        line-height:0;
+    }
+
+    .sidebar-header .logo img{
+        display:block;
+        width:56px;
+        height:56px;
+    }
+
+    .language-switch{
+        flex:1;
+        margin:0;
+        text-align:left;
+    }
+
+    .language-switch button{
+        min-width:42px;
+        padding:8px 10px;
+    }
+
+    .mobile-menu-toggle{
+        display:inline-flex;
+        min-height:42px;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+        padding:8px 12px;
+        border:1px solid #444;
+        border-radius:8px;
+        background:#222;
+        color:white;
+        font:inherit;
+        cursor:pointer;
+    }
+
+    .mobile-menu-toggle:hover,
+    .mobile-menu-toggle:focus-visible{
+        background:#333;
+    }
+
+    #menu{
+        display:none;
+        max-height:65vh;
+        overflow-y:auto;
+        padding:14px 2px 6px;
+    }
+
+    #sidebar.mobile-menu-open #menu{
+        display:block;
+    }
+
+    #menu > div:first-child{
+        display:flex;
+        flex-wrap:wrap;
+        gap:6px 12px;
+        margin-bottom:12px !important;
+    }
+
+    #menu > div:first-child br{
+        display:none;
+    }
+
+    #menu > div:first-child label{
+        white-space:nowrap;
+    }
+
+    #menu > div:nth-child(even){
+        min-height:40px;
+    }
+
+    #menu .country-name{
+        font-size:20px !important;
     }
 
     #content{
-        padding:20px;
+        padding:16px;
+    }
+
+    .home-brand{
+        margin-top:0;
+        margin-bottom:18px;
     }
 }
 
-</style>
+    </style>
 </head>
 <body>
+    <div id="container">
+        <div id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <a
+                        href="https://www.instagram.com/logelangoustine/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img src="images/logo.png" alt="Loge Langoustine på Instagram">
+                    </a>
+                </div>
 
-<div id="container">
+                <div class="language-switch">
+                    <button onclick="setLanguage('da')">DA</button>
+                    <button onclick="setLanguage('en')">EN</button>
+                </div>
 
-    <div id="sidebar">
+                <button
+                    class="mobile-menu-toggle"
+                    type="button"
+                    aria-label="Åbn menu"
+                    aria-expanded="false"
+                    aria-controls="menu"
+                    onclick="toggleMobileMenu()">
+                    <span aria-hidden="true">☰</span>
+                    <span class="mobile-menu-label">Menu</span>
+                </button>
+            </div>
 
-        <div class="logo">
-    <a href="https://www.instagram.com/logelangoustine/"
-       target="_blank"
-       rel="noopener noreferrer">
-        <img src="images/logo.png">
-    </a>
-</div>
-
-        <div class="language-switch">
-            <button onclick="setLanguage('da')">DA</button>
-            <button onclick="setLanguage('en')">EN</button>
+            <div id="menu">
+                Indlæser restauranter...
+            </div>
         </div>
 
-        <div id="menu">
-            Indlæser restauranter...
-        </div>
+        <div id="content">
+            <img
+                class="home-brand"
+                src="images/loge-langoustine.png"
+                alt="Loge Langoustine – Rituals of Taste">
 
+            <div class="info-card">
+                <p>
+                    Velkommen til vores gastronomiske univers.
+                </p>
+
+                <p>
+                    På denne side samler vi restauranter,
+                    og madoplevelser fra Danmark
+                    og resten af verden.
+                </p>
+            </div>
+        </div>
     </div>
-
-    <div id="content">
-
-        <h1 class="welcome-title">
-    Velkommen til<br>
-    Loge Langoustine
-</h1>
-
-
-        <div class="info-card">
-
-            <p>
-                Velkommen til vores gastronomiske univers.
-            </p>
-
-            <p>
-                På denne side samler vi restauranter,
-                og madoplevelser fra Danmark
-                og resten af verden.
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
 
 <script>
 
@@ -246,12 +578,263 @@ let currentLanguage = "da";
 let currentPage = {
     type: "home"
 };
+let reviewTeaserSlideshowTimer = null;
+
+const reviewTeaserSlideshowImages = {
+    "Gastromé": "images/gastrome/1.jpg",
+    "Lyst": "images/lyst/1.jpg"
+};
 
 let previousPage = null;
 let previousScrollY = 0;
 
+let mapMode = false;
+let mapMarkers = [];
+let routeMap = null;
+let routeRequestId = 0;
+let routeLoadId = 0;
+let routeWatchId = null;
+let routeSteps = [];
+let currentRouteStepIndex = 0;
+let routeLocationMarker = null;
+let routeLocationHalo = null;
+let routePreviewMarker = null;
+let routeNavigationStarted = false;
+let routeOverviewBounds = null;
+let routeTotalDistance = 0;
+let routeTotalDuration = 0;
+let routeTravelMode = "car";
+let routeTriggerButton = null;
+let routeModeChangeHandler = null;
+
+    let activeCategories = {
+    "Fine Dining": true,
+    "Side Dish": true,
+    "Value Hunt": true,
+};
+
 function t(da, en){
     return currentLanguage === "da" ? da : en;
+}
+
+function updateMobileMenuButton(){
+
+    const button = document.querySelector(".mobile-menu-toggle");
+    if(!button) return;
+
+    const isOpen =
+        document.getElementById("sidebar").classList.contains("mobile-menu-open");
+    button.setAttribute("aria-expanded", String(isOpen));
+    button.setAttribute(
+        "aria-label",
+        isOpen ? t("Luk menu", "Close menu") : t("Åbn menu", "Open menu")
+    );
+    button.querySelector(".mobile-menu-label").textContent =
+        isOpen ? t("Luk", "Close") : t("Menu", "Menu");
+}
+
+function toggleMobileMenu(){
+
+    document.getElementById("sidebar")
+        .classList.toggle("mobile-menu-open");
+    updateMobileMenuButton();
+}
+
+function closeMobileMenu(){
+
+    document.getElementById("sidebar")
+        .classList.remove("mobile-menu-open");
+    updateMobileMenuButton();
+}
+
+function escapeHtml(value){
+    return value.replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    }[character]));
+}
+
+function reviewVisitDate(review){
+
+    const visit = review.match(/\bBesøgt:\s*([^\n]+)/i);
+    if(!visit) return 0;
+
+    const months = {
+        januar: 0,
+        februar: 1,
+        marts: 2,
+        april: 3,
+        maj: 4,
+        juni: 5,
+        juli: 6,
+        august: 7,
+        september: 8,
+        oktober: 9,
+        november: 10,
+        december: 11
+    };
+    const date = visit[1].trim().match(/^([^\s]+)\s+(\d{4})$/);
+    if(!date) return 0;
+
+    const month = months[date[1].toLocaleLowerCase("da")];
+    if(month === undefined) return 0;
+
+    return new Date(Number(date[2]), month, 1).getTime();
+}
+
+function reviewVisitLabel(review){
+
+    const visit = review.match(/\bBesøgt:\s*([^\n]+)/i);
+    return visit ? visit[1].trim() : "";
+}
+
+function reviewRating(review){
+
+    const rating = review.match(/\bSamlet karakter:\s*([\d.,]+)/i);
+    return rating ? rating[1] : "";
+}
+
+function reviewTeaserText(review){
+
+    const paragraph = review
+        .split(/\n\s*\n/)
+        .find(text => text.trim() && !/^\s*Samlet karakter:/i.test(text));
+    if(!paragraph) return "";
+
+    const text = paragraph.trim();
+    return text.length > 220
+        ? `${text.slice(0, 217).trimEnd()}...`
+        : text;
+}
+
+function reviewedRestaurants(){
+
+    return restaurants
+        .filter(restaurant =>
+            restaurant.anmeldelse &&
+            !/^\s*Anmeldelse kommer snart\s*$/i.test(restaurant.anmeldelse)
+        )
+        .sort((a, b) =>
+            reviewVisitDate(b.anmeldelse) - reviewVisitDate(a.anmeldelse)
+        )
+        .slice(0, 3);
+}
+
+function startReviewTeaserSlideshow(){
+
+    if(reviewTeaserSlideshowTimer !== null){
+        clearInterval(reviewTeaserSlideshowTimer);
+        reviewTeaserSlideshowTimer = null;
+    }
+
+    const slideshows = [
+        ...document.querySelectorAll(
+            ".review-teaser-image-frame[data-review-slideshow]"
+        )
+    ];
+    if(!slideshows.length) return;
+
+    let showAlternate = false;
+    reviewTeaserSlideshowTimer = setInterval(() => {
+        if(currentPage.type !== "home"){
+            clearInterval(reviewTeaserSlideshowTimer);
+            reviewTeaserSlideshowTimer = null;
+            return;
+        }
+
+        showAlternate = !showAlternate;
+        slideshows.forEach(slideshow => {
+            slideshow.querySelectorAll(".review-teaser-image")
+                .forEach((image, index) => {
+                    image.classList.toggle(
+                        "is-visible",
+                        index === (showAlternate ? 1 : 0)
+                    );
+                });
+        });
+    }, 3000);
+}
+
+function showHomePage(){
+
+    currentPage = { type: "home" };
+
+    const reviews = reviewedRestaurants();
+    const teaserCards = reviews.map(restaurant => {
+        const alternateImage =
+            reviewTeaserSlideshowImages[restaurant.restaurant];
+
+        return `
+        <article class="review-teaser">
+            ${restaurant.billede ? `
+            <div
+                class="review-teaser-image-frame"
+                ${alternateImage ? 'data-review-slideshow' : ""}>
+                <img
+                    class="review-teaser-image is-visible"
+                    src="${escapeHtml(restaurant.billede)}"
+                    alt="${escapeHtml(restaurant.restaurant)}">
+                ${alternateImage ? `
+                <img
+                    class="review-teaser-image"
+                    src="${escapeHtml(alternateImage)}"
+                    alt=""
+                    aria-hidden="true">
+                ` : ""}
+            </div>
+            ` : ""}
+            <div class="review-teaser-content">
+                <h2>${escapeHtml(restaurant.restaurant)}</h2>
+                <p class="review-teaser-meta">${[
+                    reviewRating(restaurant.anmeldelse)
+                        ? `${t("Karakter", "Rating")}: ${escapeHtml(reviewRating(restaurant.anmeldelse))}`
+                        : "",
+                    reviewVisitLabel(restaurant.anmeldelse)
+                ].filter(Boolean).join(" · ")}</p>
+                <p class="review-teaser-excerpt">${escapeHtml(reviewTeaserText(restaurant.anmeldelse))}</p>
+                <button
+                    type="button"
+                    data-restaurant="${escapeHtml(restaurant.restaurant)}"
+                    onclick="showRestaurant(this.dataset.restaurant)">
+                    ${t("Læs hele anmeldelsen", "Read the full review")}
+                </button>
+            </div>
+        </article>
+    `;
+    }).join("");
+
+    document.getElementById("content").innerHTML = `
+        <img
+            class="home-brand"
+            src="images/loge-langoustine.png"
+            alt="Loge Langoustine – Rituals of Taste">
+
+        <div class="info-card">
+            <p>${t(
+                "Velkommen til vores gastronomiske univers.",
+                "Welcome to our gastronomic universe."
+            )}</p>
+
+            <p>${t(
+                "På denne side samler vi restauranter, vinbarer og madoplevelser fra Danmark og resten af verden.",
+                "Here we collect restaurants, wine bars and dining experiences from Denmark and around the world."
+            )}</p>
+        </div>
+
+        ${reviews.length ? `
+        <section aria-labelledby="latest-reviews-title">
+            <h2 id="latest-reviews-title">${t("Nyeste anmeldelser", "Latest reviews")}</h2>
+            <div class="review-teasers">
+                ${teaserCards}
+            </div>
+        </section>
+        ` : ""}
+    `;
+
+    startReviewTeaserSlideshow();
 }
 
 function distanceText(value){
@@ -273,17 +856,12 @@ function distanceText(value){
 let userLat = null;
 let userLng = null;
 
-    console.log(userLat, userLng);
-
     navigator.geolocation.getCurrentPosition(
 
     position => {
 
         userLat = position.coords.latitude;
         userLng = position.coords.longitude;
-
-        console.log("GPS fundet");
-        console.log(userLat, userLng);
 
         const title =
             document.querySelector("#content h1");
@@ -308,43 +886,35 @@ if(
 
         }
 
+            disposeRouteNavigation();
+
     },
 
     error => {
 
-        console.log(error);
+        console.error("Kunne ikke hente din placering:", error);
 
     }
 
 );
 
 
-fetch('GithubRestauranter.csv')
-.then(response => response.text())
-.then(csv => {
-
-    const rows = csv.trim().split('\n').slice(1);
-
-    restaurants = rows.map(row => {
-
-    const cols = row.split(';');
-
-    return {
-        land: (cols[0] || "").trim(),
-        by: (cols[1] || "").trim(),
-        restaurant: (cols[2] || "").trim(),
-        michelin: (cols[3] || "").trim(),
-        adresse: (cols[4] || "").trim(),
-        instagram: (cols[5] || "").trim(),
-        anmeldelse: (cols[6] || "").trim(),
-        billede: (cols[7] || "").trim(),
-        gps: (cols[8] || "").trim()
-    };
-
-});
-
-buildMenu();
-
+fetch('GithubRestauranter.json')
+.then(response => {
+    if (!response.ok) {
+        throw new Error(`Kunne ikke indlæse restauranter: ${response.status}`);
+    }
+    return response.json();
+})
+.then(data => {
+    restaurants = data;
+    buildMenu();
+    if(currentPage.type === "home"){
+        showHomePage();
+    }
+})
+.catch(error => {
+    console.error("Kunne ikke indlæse restauranter fra JSON:", error);
 });
 
 function buildMenu(){
@@ -354,33 +924,56 @@ function buildMenu(){
     let html = '';
 
     html += `
-<div
-    style="
-        padding:10px 0;
-        margin-bottom:15px;
-        color:#7cc8ff;
-        cursor:pointer;
-        font-weight:bold;
-    "
-    onclick="showNearbyMap()">
+<div style="margin-bottom:20px;">
 
-    📍 ${t(
-    "Se hvad der er i nærheden",
-    "What's nearby"
-)}
+<label>
+<input
+    type="checkbox"
+    ${activeCategories["Fine Dining"] ? "checked" : ""}
+    onchange="toggleCategory('Fine Dining')">
+Fine Dining
+</label>
 
+<br>
+
+<label>
+<input
+    type="checkbox"
+    ${activeCategories["Side Dish"] ? "checked" : ""}
+    onchange="toggleCategory('Side Dish')">
+Side Dish
+</label>
+
+<br>
+
+<label>
+<input
+    type="checkbox"
+    ${activeCategories["Value Hunt"] ? "checked" : ""}
+    onchange="toggleCategory('Value Hunt')">
+Value Hunt
+</label>
+
+<br>
+
+<label>
+<input
+    type="checkbox"
+    ${mapMode ? "checked" : ""}
+    onchange="toggleMapMode(this.checked)">
+Kortvisning
+</label>
 
 </div>
 `;
 
     const lande = [...new Set(
-    restaurants.map(r => r.land)
-)].sort((a, b) => a.localeCompare(b, 'da'));
+        restaurants.map(r => r.land)
+    )].sort((a, b) => a.localeCompare(b, 'da'));
 
+    lande.forEach((land, landIndex) => {
 
-    lande.forEach((land,landIndex)=>{
-
-       html += `
+        html += `
 <div style="
     display:flex;
     align-items:center;
@@ -397,55 +990,104 @@ function buildMenu(){
     </span>
 
     <span
-    class="country-name"
-    style="
-        cursor:pointer;
-        padding-left:8px;
-        font-size:28px;
-    "
-    onclick="showCountry('${land}')">
-    ${land}
-</span>
+        class="country-name"
+        style="
+            cursor:pointer;
+            padding-left:8px;
+            font-size:28px;
+        "
+        onclick="showCountry('${land}')">
+        ${land}
+    </span>
 
 </div>
 
 <div id="land${landIndex}" class="hidden">
 `;
 
-       const byer = [...new Set(
-
-    restaurants
-    .filter(r => r.land === land)
-    .map(r => r.by)
-
-)].sort((a, b) => a.localeCompare(b, 'da'));
-
-        byer.forEach((by,byIndex)=>{
-
-            html += `
-            <button class="toggle city"
-onclick="showCity('${by}')">
-    ${by}
-</button>
-
-            <div id="by${landIndex}${byIndex}"
-                 class="hidden">
-            `;
+        const regioner = [...new Set(
 
             restaurants
-            .filter(r => r.land === land && r.by === by)
-            .forEach(r => {
+            .filter(r =>
+                r.land === land &&
+                activeCategories[r.kategori]
+            )
+            .map(r => r.region)
+
+        )].sort((a, b) => a.localeCompare(b, 'da'));
+
+        regioner.forEach((region, regionIndex) => {
+
+            html += `
+<div style="
+    display:flex;
+    align-items:center;
+    margin-left:25px;
+">
+
+    <span
+        style="
+            cursor:pointer;
+            width:20px;
+            display:inline-block;
+        "
+        onclick="toggleRegion(
+            'region${landIndex}${regionIndex}',
+            this
+        )">
+
+        ▶
+
+    </span>
+
+    <span
+        style="
+            cursor:pointer;
+            color:#bbbbbb;
+            font-family:'Cinzel', serif;
+            font-size:14px;
+            padding-left:5px;
+        "
+        onclick="showRegion('${region}')">
+
+        ${region}
+
+    </span>
+
+</div>
+
+<div
+    id="region${landIndex}${regionIndex}"
+    class="hidden">
+`;
+
+            const byer = [...new Set(
+
+                restaurants
+                .filter(r =>
+                    r.land === land &&
+                    r.region === region &&
+                    activeCategories[r.kategori]
+                )
+                .map(r => r.by)
+
+            )].sort((a, b) => a.localeCompare(b, 'da'));
+
+            byer.forEach(by => {
 
                 html += `
-                <div class="restaurant"
-                     onclick="showRestaurant('${r.restaurant}')">
-                    ${r.restaurant}
-                </div>
-                `;
+<button
+    class="toggle city"
+    onclick="showCity('${by}')">
+
+    ${by}
+
+</button>
+`;
 
             });
 
-            html += `</div>`;
+        html += `</div>`;
 
         });
 
@@ -457,27 +1099,207 @@ onclick="showCity('${by}')">
 
 }
 
-function toggleMenu(id, btn){
+function toggleCategory(category){
 
-    document.querySelectorAll('[id^="land"]').forEach(el => {
+    activeCategories[category] =
+        !activeCategories[category];
 
-        if(el.id !== id){
+    buildMenu();
 
-            el.style.display = "none";
+    if(mapMode){
+        setMapMarkers(
+            restaurants.filter(r => activeCategories[r.kategori])
+        );
+        return;
+    }
 
+    if(currentPage.type === "country"){
+        showCountry(currentPage.value);
+    }
+
+    if(currentPage.type === "region"){
+    showRegion(currentPage.value);
+
+    }
+
+    if(currentPage.type === "city"){
+        showCity(currentPage.value);
+    }
+
+    if(currentPage.type === "nearby"){
+        showNearbyMap();
+    }
+
+}
+
+function toggleMapMode(value){
+
+    disposeRouteNavigation();
+    mapMode = value;
+
+    if(mapMode){
+
+        showMap();
+
+    }else{
+
+        setLanguage(currentLanguage);
+    }
+
+}
+
+function showMap(){
+
+    document.getElementById("content").innerHTML = `
+        <div id="map"
+             style="
+                width:100%;
+                height:85vh;
+                border-radius:12px;
+             ">
+        </div>
+    `;
+
+    const map = L.map('map')
+        .setView([56, 11], 6);
+
+    L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+            attribution:'© OpenStreetMap'
         }
+    ).addTo(map);
 
+    window.mainMap = map;
+    mapMarkers = [];
+    setMapMarkers(
+        restaurants.filter(r => activeCategories[r.kategori])
+    );
+
+}
+
+function zoomToCountry(country){
+
+    const countryRestaurants =
+        restaurants.filter(r =>
+            r.land === country &&
+            activeCategories[r.kategori]
+        );
+
+    zoomToRestaurants(countryRestaurants);
+
+}
+
+function setMapMarkers(restaurantList){
+
+    if(!window.mainMap) return [];
+
+    mapMarkers.forEach(marker => marker.remove());
+    mapMarkers = [];
+
+    const locations = [];
+
+    restaurantList.forEach(r => {
+        if(!r.gps) return;
+
+        const [lat, lng] = r.gps.split(',').map(Number);
+        if(!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+
+        locations.push([lat, lng]);
+        const marker = L.marker([lat, lng]).addTo(window.mainMap);
+        bindRestaurantPopup(marker, r);
+        mapMarkers.push(marker);
     });
 
-    document.querySelectorAll('#menu span').forEach(el => {
+    return locations;
+}
 
-        if(
-            el.innerHTML === '▼' &&
-            el !== btn
-        ){
-            el.innerHTML = '▶';
+function zoomToRestaurant(name){
+
+    const r =
+        restaurants.find(x =>
+            x.restaurant === name
+        );
+
+    if(!r || !r.gps) return;
+
+    const locations = setMapMarkers([r]);
+    if(locations.length === 0) return;
+
+    window.mainMap.setView(
+        locations[0],
+        16
+    );
+
+}
+
+function zoomToRestaurants(restaurantList){
+
+    if(!window.mainMap) return;
+
+    const locations = setMapMarkers(restaurantList);
+
+    if(locations.length === 0) return;
+
+    if(locations.length === 1){
+        window.mainMap.flyTo(
+            locations[0],
+            16,
+            {duration:1.2}
+        );
+        return;
+    }
+
+    window.mainMap.flyToBounds(
+        L.latLngBounds(locations),
+        {
+            padding:[50,50],
+            maxZoom:16,
+            duration:1.2
         }
+    );
+}
 
+
+function toggleMenu(id, btn){
+
+    document.querySelectorAll('#menu > div[id^="land"]').forEach(section => {
+        if(section.id !== id){
+            section.style.display = "none";
+            section.previousElementSibling
+                .querySelector('span[onclick^="toggleMenu"]')
+                .innerHTML = "▶";
+        }
+    });
+
+    const element =
+        document.getElementById(id);
+
+    if(element.style.display === "block"){
+
+        element.style.display = "none";
+        btn.innerHTML = "▶";
+
+    }else{
+
+        element.style.display = "block";
+        btn.innerHTML = "▼";
+
+    }
+
+}
+
+function toggleRegion(id, btn){
+
+    const countrySection = btn.parentElement.parentElement;
+
+    Array.from(countrySection.children).forEach(section => {
+        if(section.id.startsWith("region") && section.id !== id){
+            section.style.display = "none";
+            section.previousElementSibling
+                .querySelector('span[onclick^="toggleRegion"]')
+                .innerHTML = "▶";
+        }
     });
 
     const element =
@@ -499,62 +1321,24 @@ function toggleMenu(id, btn){
 
 function setLanguage(lang){
 
+    disposeRouteNavigation();
     currentLanguage = lang;
-
-    if(lang === "da"){
-
-        document.getElementById('content').innerHTML = `
-
-        <h1 class="welcome-title">
-    Velkommen til<br>
-    Loge Langoustine
-</h1>
-
-        <div class="info-card">
-
-            <p>
-                Velkommen til vores gastronomiske univers.
-            </p>
-
-            <p>
-                På denne side samler vi restauranter,
-                vinbarer og madoplevelser fra Danmark
-                og resten af verden.
-            </p>
-
-        </div>
-        `;
-
-    }else{
-
-        document.getElementById('content').innerHTML = `
-
-        <h1 class="welcome-title">
-    Welcome to<br>
-    Loge Langoustine
-</h1>
-
-        <div class="info-card">
-
-            <p>
-                Welcome to our gastronomic universe.
-            </p>
-
-            <p>
-                Here we collect restaurants,
-                wine bars and dining experiences
-                from Denmark and around the world.
-            </p>
-
-        </div>
-        `;
-
-    }
+    updateMobileMenuButton();
 
     buildMenu();
 
+    if(currentPage.type === "home"){
+        showHomePage();
+        return;
+    }
+
     if(currentPage.type === "country"){
         showCountry(currentPage.value);
+        return;
+    }
+
+    if(currentPage.type === "region"){
+        showRegion(currentPage.value);
         return;
     }
 
@@ -582,53 +1366,37 @@ function getDistance(gps){
     if(!gps || !userLat || !userLng)
         return "";
 
-    const coords = gps.split(",");
-
-    const lat = parseFloat(coords[0]);
-    const lng = parseFloat(coords[1]);
-
-    const R = 6371;
-
-    const dLat =
-        (lat - userLat) * Math.PI / 180;
-
-    const dLng =
-        (lng - userLng) * Math.PI / 180;
-
-    const a =
-        Math.sin(dLat/2) *
-        Math.sin(dLat/2) +
-
-        Math.cos(userLat*Math.PI/180) *
-        Math.cos(lat*Math.PI/180) *
-
-        Math.sin(dLng/2) *
-        Math.sin(dLng/2);
-
-    const c =
-        2 * Math.atan2(
-            Math.sqrt(a),
-            Math.sqrt(1-a)
-        );
-
-    const distance = R * c;
-
-    return distanceText(distance);
-
-
+    return distanceText(distanceInKm(gps));
 }
 
-    function getDistanceValue(gps){
+function routeButtonHtml(r){
+
+    if(!r.gps) return "";
+
+    return `
+        <button
+            type="button"
+            class="route-link"
+            onclick="event.stopPropagation(); showRoute('${r.gps}', this)">
+            ${t("Vis vej", "Show route")}
+        </button>
+    `;
+}
+
+function getDistanceValue(gps){
 
     if(!gps || !userLat || !userLng)
         return 999999;
 
+    return distanceInKm(gps);
+}
+
+function distanceInKm(gps){
+
     const coords = gps.split(",");
 
     const lat = parseFloat(coords[0]);
     const lng = parseFloat(coords[1]);
-
-    const R = 6371;
 
     const dLat =
         (lat - userLat) * Math.PI / 180;
@@ -636,12 +1404,15 @@ function getDistance(gps){
     const dLng =
         (lng - userLng) * Math.PI / 180;
 
+    const latitudeRadians = userLat * Math.PI / 180;
+    const destinationLatitudeRadians = lat * Math.PI / 180;
+
     const a =
         Math.sin(dLat/2) *
         Math.sin(dLat/2) +
 
-        Math.cos(userLat*Math.PI/180) *
-        Math.cos(lat*Math.PI/180) *
+        Math.cos(latitudeRadians) *
+        Math.cos(destinationLatitudeRadians) *
 
         Math.sin(dLng/2) *
         Math.sin(dLng/2);
@@ -652,18 +1423,32 @@ function getDistance(gps){
             Math.sqrt(1-a)
         );
 
-    return R * c;
+    return 6371 * c;
 }
-    
+
 function showCountry(country){
 
+    closeMobileMenu();
+    disposeRouteNavigation();
     currentPage = {
         type: "country",
         value: country
     };
 
+if(mapMode){
+
+    zoomToCountry(country);
+    return;
+
+}
+
     const countryRestaurants =
-        restaurants.filter(r => r.land === country);
+    restaurants.filter(r =>
+
+        r.land === country &&
+        activeCategories[r.kategori]
+
+    );
 
 
    let html = `
@@ -685,6 +1470,9 @@ function showCountry(country){
 })
 .forEach(r => {
 
+        const distance = getDistance(r.gps);
+        const routeButton = routeButtonHtml(r);
+
         html += `
 
         <div class="info-card"
@@ -696,13 +1484,17 @@ function showCountry(country){
 
            <h2>${r.restaurant}</h2>
 
-${getDistance(r.gps) ? `
+${distance || routeButton ? `
 <p style="
+    display:flex;
+    align-items:center;
+    gap:12px;
     color:#bbbbbb;
     margin-top:5px;
     margin-bottom:15px;
 ">
-📍 ${getDistance(r.gps)}
+${distance ? `📍 ${distance}` : ''}
+${routeButton}
 </p>
 ` : ''}
 
@@ -717,17 +1509,6 @@ ${r.billede ? `
         margin-bottom:15px;
     ">
 ` : ''}
-
-
-            ${r.michelin ? `
-            <div style="
-                font-size:24px;
-                margin-bottom:10px;
-            ">
-                ${"⭐".repeat(parseInt(r.michelin))}
-            </div>
-            ` : ''}
-
         </div>
 
         `;
@@ -736,17 +1517,28 @@ ${r.billede ? `
 
     document.getElementById('content').innerHTML = html;
 }
-    
+
     function showCity(city){
 
-    currentPage = {
+        closeMobileMenu();
+        disposeRouteNavigation();
+        currentPage = {
         type: "city",
         value: city
     };
 
     const cityRestaurants =
-        restaurants.filter(r => r.by === city);
+    restaurants.filter(r =>
 
+        r.by === city &&
+        activeCategories[r.kategori]
+
+    );
+
+    if(mapMode){
+        zoomToRestaurants(cityRestaurants);
+        return;
+    }
 
     let html = `
     <h1>${city}</h1>
@@ -759,6 +1551,9 @@ ${r.billede ? `
     getDistanceValue(b.gps))
 .forEach(r => {
 
+        const distance = getDistance(r.gps);
+        const routeButton = routeButtonHtml(r);
+
         html += `
 
         <div class="info-card"
@@ -770,13 +1565,17 @@ ${r.billede ? `
 
             <h2>${r.restaurant}</h2>
 
-${getDistance(r.gps) ? `
+${distance || routeButton ? `
 <p style="
+    display:flex;
+    align-items:center;
+    gap:12px;
     color:#bbbbbb;
     margin-top:5px;
     margin-bottom:15px;
 ">
-📍 ${getDistance(r.gps)}
+${distance ? `📍 ${distance}` : ''}
+${routeButton}
 </p>
 ` : ''}
 
@@ -792,12 +1591,6 @@ ${r.billede ? `
     ">
 ` : ''}
 
-            ${r.michelin ? `
-            <div style="font-size:24px;">
-                ${"⭐".repeat(parseInt(r.michelin))}
-            </div>
-            ` : ''}
-
         </div>
 
         `;
@@ -805,12 +1598,1165 @@ ${r.billede ? `
 
     document.getElementById('content').innerHTML = html;
 }
-    
+
+function showRegion(region){
+
+    closeMobileMenu();
+    disposeRouteNavigation();
+    currentPage = {
+    type: "region",
+    value: region
+};
+
+    const regionRestaurants =
+        restaurants.filter(r =>
+
+            r.region === region &&
+            activeCategories[r.kategori]
+
+        ).sort((a, b) =>
+            getDistanceValue(a.gps) -
+            getDistanceValue(b.gps)
+        );
+
+    if(mapMode){
+        zoomToRestaurants(regionRestaurants);
+        return;
+    }
+
+    let html = `
+    <h1>${region}</h1>
+    <br>
+    `;
+
+    regionRestaurants.forEach(r => {
+        const distance = getDistance(r.gps);
+        const routeButton = routeButtonHtml(r);
+
+        html += `
+        <div class="info-card"
+             style="
+                margin-bottom:20px;
+                cursor:pointer;
+             "
+             onclick="showRestaurant('${r.restaurant}')">
+
+            <h2>${r.restaurant}</h2>
+
+            ${distance || routeButton ? `
+            <p style="
+                display:flex;
+                align-items:center;
+                gap:12px;
+                color:#bbbbbb;
+                margin-top:5px;
+                margin-bottom:15px;
+            ">
+                ${distance ? `📍 ${distance}` : ''}
+                ${routeButton}
+            </p>
+            ` : ''}
+
+            ${r.billede ? `
+            <img
+                src="${r.billede}"
+                style="
+                    width:100%;
+                    max-height:250px;
+                    object-fit:cover;
+                    border-radius:12px;
+                ">
+            ` : ''}
+
+        </div>
+        `;
+
+    });
+
+    document.getElementById('content').innerHTML =
+        html;
+
+}
+
+function restaurantDetailsHtml(r, isPopup = false){
+
+    const addressLabel =
+        currentLanguage === "da"
+        ? "Adresse:"
+        : "Address:";
+
+    const distance = getDistance(r.gps);
+
+    const reviewLabel =
+        currentLanguage === "da"
+        ? "💬 Anmeldelse"
+        : "💬 Review";
+
+    const reviewText =
+        currentLanguage === "da"
+        ? (r.anmeldelse || "Ingen anmeldelse endnu")
+        : (r.anmeldelse || "No review yet");
+
+    const reviewHtml = reviewText
+        .replace(/[&<>"']/g, character => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        }[character]))
+        .replace(/(^|\n)(Samlet karakter:\s*\d+(?:[.,]\d+)?)/g, (match, lineBreak, heading) =>
+            `${lineBreak}<span class="review-score"><strong class="review-heading">${heading}</strong> <span class="review-info"><button type="button" class="review-info-button" aria-label="Information om samlet karakter">i</button><span class="review-info-box" role="note"><strong>Her er vores anmeldelseskategorier</strong><br><br><strong>1. Legendarisk fra 12,50 – En oplevelse der løfter sig over det sædvanlige</strong><br>Bruges ekstremt sjældent.<br>Alt spiller: råvarer, håndværk, stemning, timing, nerve.<br>Noget man taler om længe efter.<br><br><strong>2. Sublimt - tæt på det exceptionelle 11,50–12,49</strong><br>Meget højt niveau hele vejen igennem.<br>Ambitiøst, sikkert og med personlighed.<br><br><strong>3. Forrygende - Går glad derfra og anbefaler det videre 10,00 – 11,49</strong><br>Solid kvalitet med flere øjeblikke, der skiller sig ud.<br><br><strong>4. Overbevisende – Rigtig godt 9,00 – 9,99</strong><br>Velsmagende, gennemført og kompetent.<br>Ikke nødvendigvis mind‑blowing, men tydeligt veludført.<br><br><strong>5. Uforløst - Ambitionen er der men helheden mangler &gt;9</strong><br>Der er gode takter, men også plads til forbedring.<br>Potentiale mere end forløsning.</span></span></span>`
+        )
+        .replace(/(^|\n)(Spis her hvis:)/g, "$1<strong class=\"review-heading\">$2</strong>")
+        .replace(/\b(Besøgt:)(?=\s)/g, "<strong class=\"review-heading\">$1</strong>")
+        .replace(/\b(Logenote:)/g, "<strong class=\"review-heading\">$1</strong>");
+
+    const reelText =
+        currentLanguage === "da"
+        ? "🎥 Se Instagram Reel"
+        : "🎥 Watch Instagram Reel";
+
+    return `
+        ${r.billede ? `
+        <img
+            src="${r.billede}"
+            style="
+                width:100%;
+                max-height:${isPopup ? "160px" : "450px"};
+                object-fit:cover;
+                border-radius:12px;
+                margin-bottom:${isPopup ? "10px" : "20px"};
+            ">
+        ` : ''}
+        <p style="display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;">
+            <span>📍</span>
+            ${distance ? `<span style="white-space:nowrap;">${distance}</span>` : ''}
+            ${routeButtonHtml(r)}
+        </p>
+
+        <p style="margin-top:-8px;">
+            <strong>${addressLabel}</strong> ${r.adresse}
+        </p>
+
+        <p class="review-text" style="white-space: pre-line;">
+            <strong>${reviewLabel}</strong><br>
+            ${reviewHtml}
+        </p>
+
+        ${r.instagram ? `
+        <p>
+            <a href="${r.instagram}"
+               target="_blank"
+               rel="noopener noreferrer">
+               ${reelText}
+            </a>
+        </p>
+        ` : ''}
+    `;
+}
+
+function routeDistanceText(meters){
+
+    return meters < 1000
+        ? `${Math.round(meters / 10) * 10} m`
+        : `${(meters / 1000).toFixed(1)} km`;
+}
+
+function routeDurationText(seconds){
+
+    const totalMinutes = Math.round(seconds / 60);
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    if(hours > 0){
+        return currentLanguage === "da"
+            ? `${hours} t. ${minutes} min.`
+            : `${hours} hr. ${minutes} min.`;
+    }
+
+    return currentLanguage === "da"
+        ? `${totalMinutes} min.`
+        : `${totalMinutes} min.`;
+}
+
+function setRouteMode(mode){
+
+    if(routeNavigationStarted || (mode !== "car" && mode !== "walk")) return;
+
+    const modeChanged = routeTravelMode !== mode;
+    routeTravelMode = mode;
+
+    const carButton = document.getElementById("route-mode-car");
+    const walkButton = document.getElementById("route-mode-walk");
+    const note = document.getElementById("route-mode-note");
+    const startButton = document.getElementById("route-start-button");
+
+    if(carButton){
+        carButton.setAttribute("aria-pressed", String(mode === "car"));
+        carButton.style.background = mode === "car" ? "#70dfff" : "#172131";
+        carButton.style.color = mode === "car" ? "#10202c" : "white";
+    }
+    if(walkButton){
+        walkButton.setAttribute("aria-pressed", String(mode === "walk"));
+        walkButton.style.background = mode === "walk" ? "#70dfff" : "#172131";
+        walkButton.style.color = mode === "walk" ? "#10202c" : "white";
+    }
+    if(note){
+        note.textContent = mode === "walk"
+            ? t(
+                "Viser den korteste gå-rute, rutetjenesten fandt.",
+                "Showing the shortest walking route returned by the routing service."
+            )
+            : t(
+                "Viser den korteste bilrute, rutetjenesten fandt.",
+                "Showing the shortest driving route returned by the routing service."
+            );
+    }
+    if(startButton){
+        startButton.style.display = mode === "car" ? "inline-block" : "none";
+    }
+
+    if(modeChanged && routeModeChangeHandler){
+        routeModeChangeHandler();
+    }
+}
+
+function routeManeuverText(step){
+
+    const maneuver = step.maneuver || {};
+    const name = step.name ? ` ${step.name}` : "";
+    const modifiersDa = {
+        left: "til venstre",
+        "slight left": "svagt til venstre",
+        "sharp left": "skarpt til venstre",
+        right: "til højre",
+        "slight right": "svagt til højre",
+        "sharp right": "skarpt til højre",
+        straight: "ligeud",
+        uturn: "vend om"
+    };
+    const modifiersEn = {
+        left: "left",
+        "slight left": "slightly left",
+        "sharp left": "sharp left",
+        right: "right",
+        "slight right": "slightly right",
+        "sharp right": "sharp right",
+        straight: "straight",
+        uturn: "make a U-turn"
+    };
+    const modifier = currentLanguage === "da"
+        ? modifiersDa[maneuver.modifier]
+        : modifiersEn[maneuver.modifier];
+
+    if(maneuver.type === "arrive"){
+        return t("Du er fremme", "You have arrived");
+    }
+
+    if(maneuver.type === "roundabout" || maneuver.type === "rotary"){
+        const exit = maneuver.exit
+            ? t(`${maneuver.exit}. afkørsel`, `Exit ${maneuver.exit}`)
+            : "";
+        return `${t("Tag rundkørslen", "Take the roundabout")} ${exit}${name}`.trim();
+    }
+
+    if(maneuver.type === "depart"){
+        return `${t("Kør", "Head")}${modifier ? ` ${modifier}` : ""}${name}`;
+    }
+
+    if(maneuver.type === "new name" || maneuver.type === "continue"){
+        return `${t("Fortsæt", "Continue")}${modifier ? ` ${modifier}` : ""}${name}`;
+    }
+
+    if(maneuver.type === "merge"){
+        return `${t("Flet ind", "Merge")}${modifier ? ` ${modifier}` : ""}${name}`;
+    }
+
+    if(maneuver.type === "on ramp"){
+        return `${t("Tag tilkørslen", "Take the ramp")}${modifier ? ` ${modifier}` : ""}${name}`;
+    }
+
+    if(maneuver.type === "off ramp"){
+        return `${t("Tag frakørslen", "Take the exit")}${modifier ? ` ${modifier}` : ""}${name}`;
+    }
+
+    if(maneuver.type === "fork"){
+        return `${t("Hold", "Keep")}${modifier ? ` ${modifier}` : ""}${name}`;
+    }
+
+    if(maneuver.type === "end of road"){
+        return `${t("For enden af vejen", "At the end of the road")}${modifier ? `, ${modifier}` : ""}${name}`;
+    }
+
+    if(maneuver.type === "turn" || maneuver.type === "roundabout turn"){
+        return `${t("Drej", "Turn")}${modifier ? ` ${modifier}` : ""}${name}`;
+    }
+
+    return `${t("Fortsæt", "Continue")}${modifier ? ` ${modifier}` : ""}${name}`;
+}
+
+function distanceBetweenCoordinates(first, second){
+
+    const radians = degrees => degrees * Math.PI / 180;
+    const latitudeDelta = radians(second[0] - first[0]);
+    const longitudeDelta = radians(second[1] - first[1]);
+    const latitude1 = radians(first[0]);
+    const latitude2 = radians(second[0]);
+    const a =
+        Math.sin(latitudeDelta / 2) ** 2 +
+        Math.cos(latitude1) * Math.cos(latitude2) *
+        Math.sin(longitudeDelta / 2) ** 2;
+
+    const boundedA = Math.min(1, Math.max(0, a));
+    return 6371000 * 2 * Math.atan2(Math.sqrt(boundedA), Math.sqrt(1 - boundedA));
+}
+
+function findNearestRouteStep(latitude, longitude){
+
+    let nearest = null;
+    const point = [latitude, longitude];
+
+    routeSteps.forEach((step, stepIndex) => {
+        if(stepIndex < currentRouteStepIndex) return;
+
+        const coordinates = step.geometry.coordinates;
+        let distanceAlongStep = 0;
+        let geometryLength = 0;
+
+        for(let index = 0; index < coordinates.length - 1; index++){
+            const start = [coordinates[index][1], coordinates[index][0]];
+            const end = [coordinates[index + 1][1], coordinates[index + 1][0]];
+            const segmentLength = distanceBetweenCoordinates(start, end);
+            const latitudeScale = 111320;
+            const longitudeScale = latitudeScale * Math.cos(latitude * Math.PI / 180);
+            const dx = (end[1] - start[1]) * longitudeScale;
+            const dy = (end[0] - start[0]) * latitudeScale;
+            const px = (longitude - start[1]) * longitudeScale;
+            const py = (latitude - start[0]) * latitudeScale;
+            const segmentLengthSquared = dx * dx + dy * dy;
+            const fraction = segmentLengthSquared === 0
+                ? 0
+                : Math.max(0, Math.min(1, (px * dx + py * dy) / segmentLengthSquared));
+            const offsetX = px - fraction * dx;
+            const offsetY = py - fraction * dy;
+            const distanceFromSegment = Math.sqrt(offsetX * offsetX + offsetY * offsetY);
+
+            if(!nearest || distanceFromSegment < nearest.distance){
+                nearest = {
+                    stepIndex,
+                    distance: distanceFromSegment,
+                    distanceAlongStep: distanceAlongStep + segmentLength * fraction,
+                    geometryLength: 0
+                };
+            }
+
+            distanceAlongStep += segmentLength;
+            geometryLength += segmentLength;
+        }
+
+        if(nearest && nearest.stepIndex === stepIndex){
+            nearest.geometryLength = geometryLength;
+        }
+    });
+
+    return nearest;
+}
+
+function updateNavigation(position){
+
+    if(!routeMap || !routeSteps.length) return;
+
+    userLat = position.coords.latitude;
+    userLng = position.coords.longitude;
+
+    const location = [userLat, userLng];
+    if(!routeLocationMarker){
+        routeLocationMarker = L.marker(location, {
+            icon: L.divIcon({
+                className: "",
+                html: '<div style="width:22px;height:30px;clip-path:polygon(50% 0,100% 100%,50% 80%,0 100%);background:linear-gradient(90deg,#0755a8 0%,#69b8ff 48%,#0870de 100%);filter:drop-shadow(0 2px 3px #111);"></div>',
+                iconSize: [22, 30],
+                iconAnchor: [11, 15]
+            }),
+            zIndexOffset: 1000
+        }).addTo(routeMap);
+        if(routePreviewMarker){
+            routePreviewMarker.remove();
+            routePreviewMarker = null;
+        }
+    }else{
+        routeLocationMarker.setLatLng(location);
+    }
+
+    if(Number.isFinite(position.coords.heading)){
+        const arrow = routeLocationMarker.getElement();
+        const arrowShape = arrow && arrow.firstElementChild;
+        if(arrowShape){
+            arrowShape.style.transform = `rotate(${position.coords.heading}deg)`;
+        }
+    }
+
+    if(!routeLocationHalo){
+        routeLocationHalo = L.circleMarker(location, {
+            radius: 20,
+            color: "#1687ff",
+            weight: 2,
+            fillColor: "#1687ff",
+            fillOpacity: 0.2
+        }).addTo(routeMap);
+    }else{
+        routeLocationHalo.setLatLng(location);
+    }
+
+    const speedKmh = Number.isFinite(position.coords.speed)
+        ? position.coords.speed * 3.6
+        : 0;
+    const navigationZoom = speedKmh <= 10 ? 17 : 15.5;
+    const forwardOffset = routeMap.getSize().y * 0.18;
+    const projectedLocation = routeMap.project(location, navigationZoom);
+    const navigationCenter = routeMap.unproject(
+        projectedLocation.subtract([0, forwardOffset]),
+        navigationZoom
+    );
+    routeMap.setView(navigationCenter, navigationZoom, { animate: true });
+
+    const nearest = findNearestRouteStep(userLat, userLng);
+    if(!nearest) return;
+
+    currentRouteStepIndex = Math.max(currentRouteStepIndex, nearest.stepIndex);
+
+    const currentStep = routeSteps[currentRouteStepIndex];
+    const nextStep = routeSteps[currentRouteStepIndex + 1];
+    const geometryProgress = nearest.geometryLength
+        ? nearest.distanceAlongStep / nearest.geometryLength
+        : 0;
+    const currentStepRemaining = Math.max(
+        0,
+        currentStep.distance * (1 - geometryProgress)
+    );
+    const remainingDistance = routeSteps
+        .slice(currentRouteStepIndex + 1)
+        .reduce((total, step) => total + step.distance, currentStepRemaining);
+    const remainingDuration = routeSteps
+        .slice(currentRouteStepIndex + 1)
+        .reduce((total, step) => total + step.duration, currentStep.duration * (1 - geometryProgress));
+    const maneuverStep = nextStep || currentStep;
+    const distanceToManeuver = nextStep
+        ? (nextStep.maneuver.type === "arrive"
+            ? remainingDistance
+            : currentStepRemaining)
+        : 0;
+    const instruction = document.getElementById("route-instruction");
+    const distance = document.getElementById("route-distance");
+    const status = document.getElementById("route-status");
+    const arrivalTime = document.getElementById("route-arrival-time");
+    const maneuverIcon = document.getElementById("route-maneuver-icon");
+    const maneuver = maneuverStep.maneuver || {};
+    const maneuverArrow = maneuver.type === "arrive"
+        ? "◎"
+        : maneuver.type === "roundabout" || maneuver.type === "rotary"
+            ? "↻"
+            : maneuver.modifier && maneuver.modifier.includes("left")
+                ? "↰"
+                : maneuver.modifier && maneuver.modifier.includes("right")
+                    ? "↱"
+                    : maneuver.modifier === "uturn"
+                        ? "↶"
+                        : "↑";
+
+    if(instruction){
+        instruction.textContent = routeManeuverText(maneuverStep);
+    }
+    if(maneuverIcon){
+        maneuverIcon.textContent = maneuverArrow;
+    }
+    if(distance){
+        distance.textContent = routeDistanceText(distanceToManeuver);
+    }
+    if(status){
+        const arrival = new Date(Date.now() + remainingDuration * 1000);
+        const arrivalClock = arrival.toLocaleTimeString(
+            currentLanguage === "da" ? "da-DK" : "en-GB",
+            { hour: "2-digit", minute: "2-digit" }
+        );
+        status.textContent = t(
+            `${routeDistanceText(remainingDistance)} · ankomst ca. ${arrivalClock}`,
+            `${routeDistanceText(remainingDistance)} · arrival about ${arrivalClock}`
+        );
+    }
+    if(arrivalTime){
+        arrivalTime.textContent = t(
+            `Cirka ${routeDurationText(remainingDuration)}`,
+            `About ${routeDurationText(remainingDuration)}`
+        );
+    }
+}
+
+function stopNavigation(){
+
+    if(routeWatchId !== null){
+        navigator.geolocation.clearWatch(routeWatchId);
+        routeWatchId = null;
+    }
+
+    routeNavigationStarted = false;
+
+    const mapViewport = document.getElementById("route-map-viewport");
+    const startButton = document.getElementById("route-start-button");
+    const pauseControl = document.getElementById("route-guidance-control");
+    const instruction = document.getElementById("route-instruction");
+    const status = document.getElementById("route-status");
+
+    if(mapViewport){
+        mapViewport.classList.remove("route-guidance-active");
+    }
+    if(startButton){
+        startButton.style.display = "inline-block";
+        startButton.disabled = false;
+        startButton.textContent = t("Start rutevejledning", "Start navigation");
+    }
+    if(pauseControl){
+        pauseControl.style.display = "none";
+    }
+    if(routeMap && routeOverviewBounds){
+        routeMap.fitBounds(routeOverviewBounds, {
+            paddingTopLeft: [24, 120],
+            paddingBottomRight: [24, 120],
+            maxZoom: 16,
+            animate: true
+        });
+    }
+    const distance = document.getElementById("route-distance");
+    if(instruction){
+        instruction.textContent = t("Ruteoversigt", "Route overview");
+    }
+    if(distance && routeTotalDistance){
+        distance.textContent = routeDistanceText(routeTotalDistance);
+    }
+    const maneuverIcon = document.getElementById("route-maneuver-icon");
+    if(maneuverIcon){
+        maneuverIcon.textContent = "↗";
+    }
+    if(status){
+        const arrival = new Date(Date.now() + routeTotalDuration * 1000);
+        const arrivalClock = arrival.toLocaleTimeString(
+            currentLanguage === "da" ? "da-DK" : "en-GB",
+            { hour: "2-digit", minute: "2-digit" }
+        );
+        status.textContent = t(
+            `${routeDistanceText(routeTotalDistance)} · ankomst ca. ${arrivalClock}`,
+            `${routeDistanceText(routeTotalDistance)} · arrival about ${arrivalClock}`
+        );
+    }
+    setRouteMode(routeTravelMode);
+
+    const carButton = document.getElementById("route-mode-car");
+    const walkButton = document.getElementById("route-mode-walk");
+    if(carButton) carButton.disabled = false;
+    if(walkButton) walkButton.disabled = false;
+}
+
+function startRouteGuidance(){
+
+    const startButton = document.getElementById("route-start-button");
+    const mapViewport = document.getElementById("route-map-viewport");
+    const status = document.getElementById("route-status");
+
+    if(!startButton || !mapViewport || !routeMap || !routeSteps.length) return;
+
+    if(!navigator.geolocation){
+        if(status){
+            status.textContent = t(
+                "Din browser understøtter ikke placering.",
+                "Your browser does not support location access."
+            );
+        }
+        return;
+    }
+
+    const requestId = routeRequestId;
+    startButton.disabled = true;
+    startButton.textContent = t("Finder din placering...", "Finding your location...");
+
+    navigator.geolocation.getCurrentPosition(
+        position => {
+            if(requestId !== routeRequestId || !document.getElementById("route-modal")) return;
+
+            routeNavigationStarted = true;
+            mapViewport.classList.add("route-guidance-active");
+            startButton.style.display = "none";
+            const carButton = document.getElementById("route-mode-car");
+            const walkButton = document.getElementById("route-mode-walk");
+            if(carButton) carButton.disabled = true;
+            if(walkButton) walkButton.disabled = true;
+
+            const pauseControl = document.getElementById("route-guidance-control");
+            if(pauseControl){
+                pauseControl.style.display = "block";
+            }
+
+            updateNavigation(position);
+            routeWatchId = navigator.geolocation.watchPosition(
+                nextPosition => {
+                    if(requestId === routeRequestId && routeNavigationStarted){
+                        updateNavigation(nextPosition);
+                    }
+                },
+                error => {
+                    console.error("GPS-navigationen mistede placeringen:", error);
+                    if(requestId === routeRequestId){
+                        const routeStatus = document.getElementById("route-status");
+                        if(routeStatus){
+                            routeStatus.textContent = t(
+                                "Live placering mistet. Kontrollér GPS-tilladelse og signal.",
+                                "Live location lost. Check location permission and GPS signal."
+                            );
+                        }
+                        routeWatchId = null;
+                    }
+                },
+                { enableHighAccuracy: true, maximumAge: 3000, timeout: 15000 }
+            );
+        },
+        error => {
+            console.error("Kunne ikke hente din placering til rutevejledningen:", error);
+            if(requestId !== routeRequestId) return;
+
+            startButton.disabled = false;
+            startButton.textContent = t("Start rutevejledning", "Start navigation");
+            if(status){
+                status.textContent = t(
+                    "Din placering kunne ikke hentes. Tillad placering i browseren, og prøv igen.",
+                    "Your location could not be retrieved. Allow location access in your browser and try again."
+                );
+            }
+        },
+        { enableHighAccuracy: true, maximumAge: 0, timeout: 15000 }
+    );
+}
+
+function disposeRouteNavigation(){
+
+    if(routeWatchId !== null && navigator.geolocation){
+        navigator.geolocation.clearWatch(routeWatchId);
+        routeWatchId = null;
+    }
+
+    routeRequestId++;
+    routeLoadId++;
+    routeModeChangeHandler = null;
+    routeNavigationStarted = false;
+    routeSteps = [];
+    routeLocationMarker = null;
+    routeLocationHalo = null;
+    routePreviewMarker = null;
+    routeOverviewBounds = null;
+    routeTotalDistance = 0;
+    routeTotalDuration = 0;
+
+    if(routeMap){
+        routeMap.stop();
+        routeMap.remove();
+        routeMap = null;
+    }
+}
+
+function closeRouteModal(){
+
+    disposeRouteNavigation();
+
+    if(routeTriggerButton && routeTriggerButton.isConnected){
+        routeTriggerButton.disabled = false;
+    }
+    routeTriggerButton = null;
+
+    const modal = document.getElementById("route-modal");
+    if(modal){
+        modal.remove();
+    }
+
+    document.body.style.overflow = "";
+}
+
+function showRoute(gps, routeButton){
+
+    const existingModal = document.getElementById("route-modal");
+
+    if(!routeButton) return;
+
+    disposeRouteNavigation();
+
+    const [destinationLat, destinationLng] =
+        gps.split(",").map(Number);
+
+    if(!Number.isFinite(destinationLat) || !Number.isFinite(destinationLng)){
+        console.error("Restaurantens GPS-koordinater er ugyldige:", gps);
+        return;
+    }
+
+    const requestId = ++routeRequestId;
+    routeTravelMode = "car";
+    routeTriggerButton = routeButton;
+    routeButton.disabled = true;
+
+    if(existingModal){
+        existingModal.remove();
+    }
+
+    document.body.insertAdjacentHTML("beforeend", `
+        <div
+            id="route-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="route-modal-title"
+            tabindex="-1"
+            onclick="if(event.target === this) closeRouteModal()"
+            style="
+                position:fixed;
+                inset:0;
+                z-index:2000;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                padding:16px;
+                background:rgba(0,0,0,.78);
+            ">
+            <section style="
+                display:flex;
+                flex-direction:column;
+                padding:10px;
+                border:1px solid #344256;
+                border-radius:20px;
+                background:#101722;
+                box-shadow:0 12px 40px rgba(0,0,0,.6);
+            " class="route-navigation-dialog">
+                <header style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    gap:12px;
+                    padding:2px 2px 9px;
+                ">
+                    <h2 id="route-modal-title" style="margin:0; font-size:16px;">
+                        ${t("Navigation", "Navigation")}
+                    </h2>
+                    <button
+                        type="button"
+                        aria-label="${t("Luk navigation", "Close navigation")}"
+                        onclick="closeRouteModal()"
+                        style="
+                            width:34px;
+                            height:34px;
+                            padding:0;
+                            border:1px solid #526071;
+                            border-radius:50%;
+                            background:#172131;
+                            color:white;
+                            font-size:17px;
+                            cursor:pointer;
+                        ">✕</button>
+                </header>
+                <div style="padding:0 2px 10px;">
+                    <div style="display:flex; gap:8px;">
+                        <button
+                            id="route-mode-car"
+                            type="button"
+                            aria-pressed="true"
+                            onclick="setRouteMode('car')"
+                            style="
+                                padding:7px 12px;
+                                border:1px solid #526071;
+                                border-radius:18px;
+                                background:#70dfff;
+                                color:#10202c;
+                                cursor:pointer;
+                            ">${t("Bil", "Car")}</button>
+                        <button
+                            id="route-mode-walk"
+                            type="button"
+                            aria-pressed="false"
+                            onclick="setRouteMode('walk')"
+                            style="
+                                padding:7px 12px;
+                                border:1px solid #526071;
+                                border-radius:18px;
+                                background:#172131;
+                                color:white;
+                                cursor:pointer;
+                            ">${t("Gå", "Walk")}</button>
+                    </div>
+                    <div id="route-mode-note" aria-live="polite" style="margin-top:6px; color:#d8dce2; font-size:12px;"></div>
+                </div>
+                <div
+                    id="route-map-viewport"
+                    class="route-navigation-map">
+                    <div
+                        id="route-map-canvas"
+                        class="route-navigation-canvas">
+                    </div>
+                    <div style="
+                        position:absolute;
+                        z-index:1000;
+                        top:12px;
+                        left:12px;
+                        right:12px;
+                        display:flex;
+                        align-items:center;
+                        gap:14px;
+                        min-height:82px;
+                        padding:14px 18px;
+                        border-radius:18px;
+                        background:#315d61;
+                        box-shadow:0 4px 12px rgba(0,0,0,.3);
+                        pointer-events:none;
+                    ">
+                        <div id="route-maneuver-icon" aria-hidden="true" style="
+                            min-width:48px;
+                            color:white;
+                            font-size:52px;
+                            font-weight:bold;
+                            line-height:1;
+                            text-align:center;
+                        ">↑</div>
+                        <div style="min-width:0;">
+                                    <div id="route-distance" style="font-size:25px; font-weight:bold;"></div>
+                            <div id="route-instruction" style="margin-top:3px; font-size:17px; overflow-wrap:anywhere;"></div>
+                        </div>
+                    </div>
+                    <div id="route-guidance-control" style="
+                        position:absolute;
+                        z-index:1000;
+                        right:12px;
+                        bottom:82px;
+                        display:none;
+                    ">
+                        <button
+                            id="route-pause-button"
+                            type="button"
+                            aria-label="${t("Stop navigation", "Stop navigation")}"
+                            onclick="stopNavigation()"
+                            style="
+                                width:48px;
+                                height:48px;
+                                border:1px solid #536173;
+                                border-radius:50%;
+                                background:#101722;
+                                color:white;
+                                font-size:20px;
+                                cursor:pointer;
+                            ">Ⅱ</button>
+                    </div>
+                    <div style="
+                        position:absolute;
+                        z-index:1000;
+                        right:0;
+                        bottom:0;
+                        left:0;
+                        display:flex;
+                        flex-direction:column;
+                        align-items:center;
+                        padding:12px 16px 14px;
+                        border-radius:18px 18px 0 0;
+                        background:rgba(8,10,14,.96);
+                        box-shadow:0 -4px 16px rgba(0,0,0,.25);
+                        pointer-events:none;
+                    ">
+                        <span style="width:34px; height:4px; margin-bottom:8px; border-radius:4px; background:#9299a3;"></span>
+                        <div id="route-arrival-time" style="color:#f4c84a; font-size:25px; font-weight:bold;"></div>
+                        <div id="route-status" aria-live="polite" style="margin-top:3px; color:#d8dce2; font-size:14px;">
+                            ${t("Henter rute...", "Loading route...")}
+                        </div>
+                        <button
+                            id="route-start-button"
+                            type="button"
+                            disabled
+                            onclick="startRouteGuidance()"
+                            style="
+                                margin-top:10px;
+                                padding:10px 20px;
+                                border:0;
+                                border-radius:24px;
+                                background:#70dfff;
+                                color:#10202c;
+                                font-size:15px;
+                                font-weight:bold;
+                                cursor:pointer;
+                                pointer-events:auto;
+                            ">
+                            ${t("Start rutevejledning", "Start navigation")}
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    `);
+    document.body.style.overflow = "hidden";
+    document.getElementById("route-modal").focus();
+
+    const showRouteError = message => {
+        if(requestId !== routeRequestId) return;
+        const status = document.getElementById("route-status");
+        if(status){
+            status.textContent = message;
+        }
+        routeButton.disabled = false;
+    };
+
+    const loadRoute = (originLat, originLng) => {
+        if(requestId !== routeRequestId) return;
+        if(!document.getElementById("route-map-canvas")) return;
+
+        const loadId = ++routeLoadId;
+        const mode = routeTravelMode;
+        const status = document.getElementById("route-status");
+        const startButton = document.getElementById("route-start-button");
+
+        if(status){
+            status.textContent = mode === "car"
+                ? t("Henter bilrute...", "Loading driving route...")
+                : t("Henter gå-rute...", "Loading walking route...");
+        }
+        if(startButton){
+            startButton.disabled = true;
+        }
+
+        const origin = [originLat, originLng];
+        const destination = [destinationLat, destinationLng];
+
+        const routingProfile = mode === "car" ? "routed-car" : "routed-foot";
+        const profile = mode === "car" ? "driving" : "foot";
+        const routeUrl =
+            `https://routing.openstreetmap.de/${routingProfile}/route/v1/${profile}/${originLng},${originLat};${destinationLng},${destinationLat}?overview=full&steps=true&geometries=geojson&alternatives=true`;
+
+        fetch(routeUrl)
+            .then(response => {
+                if(!response.ok){
+                    throw new Error(`Routing service returned ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if(data.code !== "Ok" || !data.routes || !data.routes.length){
+                    throw new Error(data.message || "No route found");
+                }
+
+                if(requestId !== routeRequestId || loadId !== routeLoadId) return;
+
+                const routeData = data.routes.reduce((shortest, route) =>
+                    route.distance < shortest.distance ? route : shortest
+                );
+                const leg = routeData.legs && routeData.legs[0];
+                if(!leg || !leg.steps || !leg.steps.length){
+                    throw new Error("Route response did not contain turn-by-turn steps");
+                }
+
+                if(routeMap){
+                    routeMap.stop();
+                    routeMap.remove();
+                }
+                routeMap = L.map("route-map-canvas", {
+                    zoomSnap: 0.5
+                });
+
+                L.tileLayer(
+                    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                    { attribution: "© OpenStreetMap" }
+                ).addTo(routeMap);
+
+                L.marker(destination)
+                    .addTo(routeMap)
+                    .bindPopup(t("Restaurant", "Restaurant"));
+
+                routeSteps = leg.steps;
+                currentRouteStepIndex = 0;
+
+                const routeLine = L.geoJSON(routeData.geometry, {
+                    style: { color: "#70dfff", weight: 8, opacity: 0.95 }
+                }).addTo(routeMap);
+                routeOverviewBounds = L.latLngBounds([origin, destination]);
+                routeOverviewBounds.extend(routeLine.getBounds());
+                routeMap.fitBounds(
+                    routeOverviewBounds,
+                    {
+                        paddingTopLeft: [24, 120],
+                        paddingBottomRight: [24, 120],
+                        maxZoom: 16
+                    }
+                );
+                routeTotalDistance = routeData.distance;
+                routeTotalDuration = routeData.duration;
+
+                routePreviewMarker = L.circleMarker(origin, {
+                    radius: 8,
+                    color: "#ffffff",
+                    weight: 3,
+                    fillColor: "#1687ff",
+                    fillOpacity: 1
+                }).addTo(routeMap)
+                    .bindPopup(t("Din placering", "Your location"));
+
+                const startButton = document.getElementById("route-start-button");
+                const distance = document.getElementById("route-distance");
+                const instruction = document.getElementById("route-instruction");
+                const maneuverIcon = document.getElementById("route-maneuver-icon");
+                const arrivalTime = document.getElementById("route-arrival-time");
+                const status = document.getElementById("route-status");
+                const arrival = new Date(Date.now() + routeData.duration * 1000);
+                const arrivalClock = arrival.toLocaleTimeString(
+                    currentLanguage === "da" ? "da-DK" : "en-GB",
+                    { hour: "2-digit", minute: "2-digit" }
+                );
+
+                if(distance){
+                    distance.textContent = routeDistanceText(routeData.distance);
+                }
+                if(instruction){
+                    instruction.textContent = t("Ruteoversigt", "Route overview");
+                }
+                if(maneuverIcon){
+                    maneuverIcon.textContent = "↗";
+                }
+                if(arrivalTime){
+                    arrivalTime.textContent = t(
+                        `Cirka ${routeDurationText(routeData.duration)}`,
+                        `About ${routeDurationText(routeData.duration)}`
+                    );
+                }
+                if(status){
+                    status.textContent = t(
+                        `${routeDistanceText(routeData.distance)} · ankomst ca. ${arrivalClock}`,
+                        `${routeDistanceText(routeData.distance)} · arrival about ${arrivalClock}`
+                    );
+                }
+                if(startButton){
+                    startButton.disabled = false;
+                }
+
+                routeButton.disabled = false;
+            })
+            .catch(error => {
+                if(requestId !== routeRequestId || loadId !== routeLoadId) return;
+
+                console.error("Kunne ikke hente ruten:", error);
+                if(status){
+                    status.textContent = mode === "car"
+                        ? t(
+                            "Bilruten kunne ikke hentes. Prøv igen senere.",
+                            "The driving route could not be loaded. Please try again later."
+                        )
+                        : t(
+                            "Gå-ruten kunne ikke hentes. Prøv igen senere.",
+                            "The walking route could not be loaded. Please try again later."
+                        );
+                }
+                if(startButton){
+                    startButton.disabled = true;
+                }
+                routeButton.disabled = false;
+            });
+    };
+
+    routeModeChangeHandler = () => {
+        if(userLat !== null && userLng !== null){
+            loadRoute(userLat, userLng);
+        }
+    };
+
+    if(!navigator.geolocation){
+        showRouteError(t(
+            "Din browser understøtter ikke placering.",
+            "Your browser does not support location access."
+        ));
+        return;
+    }
+
+    if(userLat !== null && userLng !== null){
+        loadRoute(userLat, userLng);
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+        position => {
+            userLat = position.coords.latitude;
+            userLng = position.coords.longitude;
+            loadRoute(userLat, userLng);
+        },
+        error => {
+            console.error("Kunne ikke hente din placering til ruten:", error);
+            showRouteError(t(
+                "Din placering kunne ikke hentes. Tillad placering i browseren, og prøv igen.",
+                "Your location could not be retrieved. Allow location access in your browser and try again."
+            ));
+        }
+    );
+}
+
+function bindRestaurantPopup(marker, r){
+
+    let closePopupTimeout;
+    let popupHovered = false;
+
+    marker.bindPopup(`
+        <div class="restaurant-map-popup" style="width:242px; color:white; background:#222; padding:12px; border-radius:8px;">
+            <strong style="display:block; margin-bottom:8px;">${r.restaurant}</strong>
+            <div class="info-card" style="padding:0 12px 12px; margin:0;">
+                ${restaurantDetailsHtml(r, true)}
+            </div>
+        </div>
+    `, {
+        maxWidth: 340,
+        maxHeight: 450,
+        className: 'restaurant-info-popup'
+    });
+
+    marker.on('mouseover', function(){
+        clearTimeout(closePopupTimeout);
+        this.openPopup();
+    });
+
+    marker.on('mouseout', function(){
+        closePopupTimeout = setTimeout(() => {
+            if(!popupHovered){
+                this.closePopup();
+            }
+        }, 150);
+    });
+
+    marker.on('popupopen', event => {
+        const popupElement = event.popup.getElement();
+
+        popupElement.onmouseenter = () => {
+            popupHovered = true;
+            clearTimeout(closePopupTimeout);
+        };
+
+        popupElement.onmouseleave = () => {
+            popupHovered = false;
+            marker.closePopup();
+        };
+    });
+
+    marker.on('popupclose', () => {
+        popupHovered = false;
+    });
+}
+
 function showRestaurant(name){
 
-    previousScrollY = window.scrollY;
+    closeMobileMenu();
 
-    previousPage = {...currentPage};
+    if(mapMode){
+
+    zoomToRestaurant(name);
+    return;
+
+}
+
+    if(currentPage.type !== "restaurant"){
+        previousScrollY = window.scrollY;
+        previousPage = {...currentPage};
+    }
 
     currentPage = {
 
@@ -823,71 +2769,13 @@ function showRestaurant(name){
             x.restaurant === name);
 
 
-    const addressLabel =
-        currentLanguage === "da"
-        ? "📍 Adresse"
-        : "📍 Address";
-
-    const reviewLabel =
-        currentLanguage === "da"
-        ? "💬 Anmeldelse"
-        : "💬 Review";
-
-    const reviewText =
-        currentLanguage === "da"
-        ? (r.anmeldelse || "Ingen anmeldelse endnu")
-        : (r.anmeldelse || "No review yet");
-
-    const reelText =
-        currentLanguage === "da"
-        ? "🎥 Se Instagram Reel"
-        : "🎥 Watch Instagram Reel";
-
     document.getElementById('content').innerHTML = `
 
         <h1>${r.restaurant}</h1>
 
         <div class="info-card">
 
-    ${r.billede ? `
-    <img
-        src="${r.billede}"
-        style="
-            width:100%;
-            max-height:450px;
-            object-fit:cover;
-            border-radius:12px;
-            margin-bottom:20px;
-        ">
-    ` : ''}
-
-            ${r.michelin ? `
-<div style="
-    font-size:34px;
-    margin-bottom:20px;
-">
-    ${"⭐".repeat(parseInt(r.michelin))}
-</div>
-` : ''}
-
-            <p>
-                <strong>${addressLabel}</strong><br>
-                ${r.adresse}
-            </p>
-
-            <p>
-                <strong>${reviewLabel}</strong><br>
-                ${reviewText}
-            </p>
-
-            ${r.instagram ? `
-<p>
-    <a href="${r.instagram}"
-       target="_blank">
-       ${reelText}
-    </a>
-</p>
-` : ''}
+            ${restaurantDetailsHtml(r)}
 
 <div style="
     display:flex;
@@ -921,12 +2809,22 @@ function closeRestaurant(){
 
     if(!previousPage) return;
 
+    disposeRouteNavigation();
+
     if(previousPage.type === "country"){
         showCountry(previousPage.value);
     }
 
     if(previousPage.type === "city"){
         showCity(previousPage.value);
+    }
+
+    if(previousPage.type === "region"){
+        showRegion(previousPage.value);
+    }
+
+    if(previousPage.type === "home"){
+        showHomePage();
     }
 
     if(previousPage.type === "nearby"){
@@ -948,6 +2846,8 @@ function closeRestaurant(){
 
 function showNearbyMap(){
 
+    closeMobileMenu();
+    disposeRouteNavigation();
     currentPage = {
         type: "nearby"
     };
@@ -970,7 +2870,7 @@ function showNearbyMap(){
 
     return;
 }
-    
+
     let html = `
     <h1>${t(
         "Se hvad der er i nærheden",
@@ -991,14 +2891,6 @@ function showNearbyMap(){
     document.getElementById('content').innerHTML = html;
 
     const map = L.map('map').setView(
-    [userLat || 55.6761,
-     userLng || 12.5683],
-    userLat ? 11 : 7
-);
-
-    if(userLat && userLng){
-
-    map.setView(
         [userLat, userLng],
         11
     );
@@ -1015,14 +2907,11 @@ function showNearbyMap(){
     )
     .addTo(map)
     .bindPopup(
-    t(
-        "📍 Du er her",
-        "📍 You are here"
-    )
-);
-
-
-}
+        t(
+            "📍 Du er her",
+            "📍 You are here"
+        )
+    );
 
    L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -1044,25 +2933,24 @@ function showNearbyMap(){
         const lng =
             parseFloat(coords[1]);
 
-        L.marker([lat,lng])
-            .addTo(map)
-            .bindPopup(
-                `
-                <strong>${r.restaurant}</strong>
-                <br>
-                ${r.by}
-                <br>
-                ${getDistance(r.gps)}
-                `
-            );
+        bindRestaurantPopup(
+            L.marker([lat,lng]).addTo(map),
+            r
+        );
 
     });
 
 }
 
+document.addEventListener("contextmenu", event => {
+    if(event.target instanceof Element && event.target.closest("img")){
+        event.preventDefault();
+    }
+});
+
 </script>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    
+
 </body>
 </html>
