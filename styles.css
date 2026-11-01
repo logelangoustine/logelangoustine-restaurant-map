@@ -1,0 +1,512 @@
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:#111;
+    color:white;
+    font-family:Arial,sans-serif;
+}
+
+#container{
+    display:flex;
+    min-height:100vh;
+}
+
+
+#sidebar{
+    width:350px;
+    background:#1a1a1a;
+    padding:20px;
+    overflow-y:auto;
+    border-right:1px solid #333;
+}
+
+#content{
+    flex:1;
+    padding:40px;
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.country-name{
+    font-family:'Cinzel', serif;
+    letter-spacing:1px;
+}
+
+.logo img{
+    width:180px;
+    height:180px;
+    object-fit:cover;
+    border-radius:50%;
+    transition:0.2s ease;
+}
+
+.logo img:hover{
+    transform:scale(1.03);
+    opacity:0.9;
+}
+
+.language-switch{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.language-switch button{
+    background:#222;
+    color:white;
+    border:1px solid #444;
+    border-radius:8px;
+    padding:8px 12px;
+    cursor:pointer;
+    margin:2px;
+}
+
+.language-switch button:hover{
+    background:#333;
+}
+
+.mobile-menu-toggle{
+    display:none;
+}
+
+.toggle{
+    width:100%;
+    background:none;
+    border:none;
+    color:white;
+    text-align:left;
+    font-size:18px;
+    cursor:pointer;
+    padding:8px 0;
+}
+
+.city{
+    margin-left:40px;
+    padding:2px 0;
+    font-size:15px;
+    color:#cfcfcf;
+}
+
+.restaurant{
+    margin-left:40px;
+    color:#7cc8ff;
+    cursor:pointer;
+    padding:5px 0;
+}
+
+.restaurant:hover{
+    color:white;
+}
+
+.hidden{
+    display:none;
+}
+
+h1{
+    margin-top:0;
+}
+
+.home-brand{
+    display:block;
+    width:min(100%, 900px);
+    height:auto;
+    margin-top:-83px;
+    margin-bottom:28px;
+}
+
+.info-card{
+    background:#222;
+    padding:20px;
+    border-radius:12px;
+    max-width:800px;
+}
+
+.info-card a{
+    color:#7cc8ff;
+}
+
+.review-teasers{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap:16px;
+    max-width:1100px;
+    margin-top:32px;
+}
+
+.review-teaser{
+    display:flex;
+    flex-direction:column;
+    background:#222;
+    border:1px solid #333;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.review-teaser-image-frame{
+    position:relative;
+    display:block;
+    width:100%;
+    height:190px;
+    overflow:hidden;
+    background:#111;
+}
+
+.restaurant-gallery-card{
+    height:auto;
+    max-height:250px;
+    aspect-ratio:16 / 9;
+    margin-bottom:15px;
+    border-radius:12px;
+}
+
+.restaurant-gallery-detail{
+    height:auto;
+    max-height:450px;
+    aspect-ratio:16 / 9;
+    margin-bottom:20px;
+    border-radius:12px;
+}
+
+.restaurant-gallery-popup{
+    height:auto;
+    max-height:160px;
+    aspect-ratio:3 / 2;
+    margin-bottom:10px;
+    border-radius:12px;
+}
+
+.review-teaser-image{
+    position:absolute;
+    inset:0;
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transition:opacity 900ms ease;
+}
+
+.review-teaser-image.is-visible{
+    opacity:1;
+}
+
+.review-teaser-content{
+    display:flex;
+    flex:1;
+    flex-direction:column;
+    align-items:flex-start;
+    padding:18px;
+}
+
+.review-teaser h2{
+    margin:0 0 8px;
+}
+
+.review-teaser-meta{
+    margin:0;
+    color:#bbb;
+    font-size:14px;
+}
+
+.review-teaser p{
+    line-height:1.55;
+    white-space:pre-line;
+}
+
+.review-teaser-excerpt{
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    line-clamp:2;
+    overflow:hidden;
+}
+
+.review-teaser button{
+    margin-top:auto;
+    padding:9px 14px;
+    border:1px solid #555;
+    border-radius:8px;
+    background:#333;
+    color:white;
+    cursor:pointer;
+}
+
+.review-teaser button:hover{
+    background:#444;
+}
+
+.review-heading{
+    font-size:16px;
+    font-family:'Source Sans Pro', sans-serif;
+    font-weight:900;
+}
+
+.review-text{
+    font-family:'Source Sans Pro', sans-serif;
+}
+
+.review-score{
+    display:inline-block;
+    white-space:nowrap;
+}
+
+.review-info{
+    position:relative;
+    display:inline-block;
+    margin-left:6px;
+    font-family:Arial,sans-serif;
+    font-size:14px;
+    font-weight:normal;
+    vertical-align:middle;
+}
+
+.review-info-button{
+    display:inline-flex;
+    width:17px;
+    height:17px;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+    border:1px solid #cfcfcf;
+    border-radius:50%;
+    background:transparent;
+    color:#cfcfcf;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:bold;
+    line-height:1;
+}
+
+.review-info-box{
+    position:absolute;
+    top:calc(100% + 8px);
+    left:0;
+    z-index:10;
+    display:none;
+    width:380px;
+    max-width:calc(100vw - 48px);
+    max-height:70vh;
+    overflow-y:auto;
+    padding:12px;
+    border:1px solid #444;
+    border-radius:8px;
+    background:#333;
+    box-shadow:0 4px 12px rgba(0,0,0,.4);
+    color:white;
+    font-size:14px;
+    font-weight:normal;
+    line-height:1.4;
+    white-space:normal;
+}
+
+@media(max-width:600px){
+    .review-teasers{
+        grid-template-columns:1fr;
+        gap:14px;
+    }
+
+    .review-teaser-image-frame{
+        height:170px;
+    }
+
+    .review-teaser-content{
+        padding:16px;
+    }
+
+    .review-teaser button{
+        width:100%;
+        min-height:44px;
+    }
+}
+
+.review-info:hover .review-info-box,
+.review-info:focus-within .review-info-box{
+    display:block;
+}
+
+.restaurant-map-popup .review-info-box{
+    left:auto;
+    right:0;
+    width:180px;
+    max-width:calc(100vw - 80px);
+    max-height:220px;
+}
+
+.restaurant-info-popup .leaflet-popup-content{
+    overflow-x:hidden;
+}
+
+.route-navigation-dialog{
+    width:min(520px, 100%);
+    height:min(900px, 94vh);
+    min-height:360px;
+}
+
+.route-navigation-map{
+    flex:1;
+    min-height:0;
+    position:relative;
+    border-radius:14px;
+    overflow:hidden;
+    isolation:isolate;
+}
+
+.route-navigation-canvas{
+    position:absolute;
+    inset:0;
+}
+
+.route-navigation-map.route-guidance-active .route-navigation-canvas{
+    transform:perspective(1000px) rotateX(23deg) scale(1.24);
+    transform-origin:center 72%;
+}
+
+.route-navigation-canvas .leaflet-control-zoom{
+    display:none;
+}
+
+.route-link{
+    padding:0;
+    border:0;
+    background:none;
+    color:#7cc8ff;
+    cursor:pointer;
+    font:inherit;
+    text-decoration:underline;
+}
+
+@media(max-width:600px){
+    #route-modal{
+        padding:0 !important;
+    }
+
+    .route-navigation-dialog{
+        width:100%;
+        height:100vh;
+        height:100dvh;
+        min-height:0;
+        max-height:none !important;
+        border-radius:0 !important;
+    }
+
+    .route-navigation-map{
+        border-radius:0;
+    }
+}
+
+@media(max-width:900px){
+
+    #container{
+        flex-direction:column;
+    }
+
+    #sidebar{
+        width:100%;
+        position:sticky;
+        top:0;
+        z-index:1000;
+        padding:8px 14px;
+        overflow:visible;
+        border-right:0;
+        border-bottom:1px solid #333;
+    }
+
+    .sidebar-header{
+        display:flex;
+        min-height:56px;
+        align-items:center;
+        gap:12px;
+    }
+
+    .sidebar-header .logo{
+        flex:0 0 56px;
+        width:56px;
+        margin:0;
+        line-height:0;
+    }
+
+    .sidebar-header .logo img{
+        display:block;
+        width:56px;
+        height:56px;
+    }
+
+    .language-switch{
+        flex:1;
+        margin:0;
+        text-align:left;
+    }
+
+    .language-switch button{
+        min-width:42px;
+        padding:8px 10px;
+    }
+
+    .mobile-menu-toggle{
+        display:inline-flex;
+        min-height:42px;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+        padding:8px 12px;
+        border:1px solid #444;
+        border-radius:8px;
+        background:#222;
+        color:white;
+        font:inherit;
+        cursor:pointer;
+    }
+
+    .mobile-menu-toggle:hover,
+    .mobile-menu-toggle:focus-visible{
+        background:#333;
+    }
+
+    #menu{
+        display:none;
+        max-height:65vh;
+        overflow-y:auto;
+        padding:14px 2px 6px;
+    }
+
+    #sidebar.mobile-menu-open #menu{
+        display:block;
+    }
+
+    #menu > div:first-child{
+        display:flex;
+        flex-wrap:wrap;
+        gap:6px 12px;
+        margin-bottom:12px !important;
+    }
+
+    #menu > div:first-child br{
+        display:none;
+    }
+
+    #menu > div:first-child label{
+        white-space:nowrap;
+    }
+
+    #menu > div:nth-child(even){
+        min-height:40px;
+    }
+
+    #menu .country-name{
+        font-size:20px !important;
+    }
+
+    #content{
+        padding:16px;
+    }
+
+    .home-brand{
+        margin-top:0;
+        margin-bottom:18px;
+    }
+}

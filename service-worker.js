@@ -1,7 +1,9 @@
-const CACHE_NAME = "loge-langoustine-v2";
+const CACHE_NAME = "loge-langoustine-v3";
 const APP_SHELL = [
     "./",
     "./index.html",
+    "./styles.css",
+    "./app.js",
     "./GithubRestauranter.json",
     "./manifest.webmanifest",
     "./images/logo.png",
