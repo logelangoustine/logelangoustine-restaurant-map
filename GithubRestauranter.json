@@ -357,5 +357,29 @@
         "billede":  "",
         "gps":  "55.676355468047355, 12.54138606727201",
         "kategori":  "Value Hunt"
+    },
+    {
+        "land":  "Sverige",
+        "region":  "Skåne",
+        "by":  "Ängelholm",
+        "restaurant":  "Rost Ängelholm",
+        "adresse":  "Storgatan 57, Ängelholm, Skåne län, 262 35",
+        "instagram":  "",
+        "anmeldelse":  "Anmeldelse kommer snart",
+        "billede":  "",
+        "gps":  "56.24669544081251, 12.864423771000519",
+        "kategori":  "Side Dish"
+    },
+    {
+        "land":  "Spanien",
+        "region":  "Catalonien",
+        "by":  "Barcelona",
+        "restaurant":  "Caravelle",
+        "adresse":  "Calle del Pintor Fortuny 31, Barcelona, Cataluña, 08001",
+        "instagram":  "",
+        "anmeldelse":  "Anmeldelse kommer snart",
+        "billede":  "",
+        "gps":  "41.38243677136521, 2.1688168973987443",
+        "kategori":  "Side Dish"
     }
 ]
