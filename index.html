@@ -13,8 +13,10 @@
 
     <title>Loge Langoustine</title>
 
+    <meta name="theme-color" content="#111111">
+    <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" type="image/png" href="images/logo.png">
-    <link rel="apple-touch-icon" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/app-icon-180.png">
 
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
@@ -486,6 +488,29 @@ h1{
         background:#333;
     }
 
+    .install-app-menu-item{
+        display:block;
+        width:100%;
+        margin:0 0 14px;
+        padding:12px;
+        border:1px solid #444;
+        border-radius:8px;
+        background:#222;
+        color:white;
+        font:inherit;
+        text-align:left;
+        cursor:pointer;
+    }
+
+    .install-app-menu-item[hidden]{
+        display:none;
+    }
+
+    .install-app-menu-item:hover,
+    .install-app-menu-item:focus-visible{
+        background:#333;
+    }
+
     #menu{
         display:none;
         max-height:65vh;
@@ -596,6 +621,8 @@ let currentPage = {
     type: "home"
 };
 let reviewTeaserSlideshowTimer = null;
+let deferredInstallPrompt = null;
+let appIsInstalled = false;
 
 const reviewTeaserSlideshowImages = {
     "Gastromé": "images/gastrome/1.jpg",
@@ -632,6 +659,61 @@ let routeModeChangeHandler = null;
 
 function t(da, en){
     return currentLanguage === "da" ? da : en;
+}
+
+window.addEventListener("beforeinstallprompt", event => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+});
+
+window.addEventListener("appinstalled", () => {
+    appIsInstalled = true;
+    deferredInstallPrompt = null;
+    updateInstallAppButton();
+});
+
+function updateInstallAppButton(){
+
+    const button = document.querySelector(".install-app-menu-item");
+    if(!button) return;
+
+    const isStandalone =
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true;
+    button.hidden = appIsInstalled || isStandalone;
+}
+
+async function installApp(){
+
+    if(deferredInstallPrompt){
+        const installPrompt = deferredInstallPrompt;
+        deferredInstallPrompt = null;
+        try{
+            await installPrompt.prompt();
+            await installPrompt.userChoice;
+        }catch(error){
+            console.error("Kunne ikke starte app-installationen:", error);
+        }
+        return;
+    }
+
+    const isIOS =
+        /iphone|ipad|ipod/i.test(window.navigator.userAgent) ||
+        (window.navigator.platform === "MacIntel" &&
+            window.navigator.maxTouchPoints > 1);
+
+    if(isIOS){
+        alert(t(
+            "Tryk på Del-knappen i Safari, og vælg derefter “Føj til hjemmeskærm”.",
+            "Tap the Share button in Safari, then choose “Add to Home Screen”."
+        ));
+        return;
+    }
+
+    alert(t(
+        "Åbn browserens menu, og vælg “Installer app” eller “Føj til startskærm”.",
+        "Open your browser menu and choose “Install app” or “Add to Home screen”."
+    ));
 }
 
 function updateMobileMenuButton(){
@@ -982,6 +1064,13 @@ Kortvisning
 </label>
 
 </div>
+
+<button
+    type="button"
+    class="install-app-menu-item"
+    onclick="installApp()">
+    ${t("📲 Installér som app", "📲 Install as app")}
+</button>
 `;
 
     const lande = [...new Set(
@@ -1113,6 +1202,7 @@ Kortvisning
     });
 
     menu.innerHTML = html;
+    updateInstallAppButton();
 
 }
 
@@ -2964,6 +3054,13 @@ document.addEventListener("contextmenu", event => {
         event.preventDefault();
     }
 });
+
+if("serviceWorker" in navigator){
+    navigator.serviceWorker.register("./service-worker.js")
+        .catch(error => {
+            console.error("Kunne ikke registrere service worker:", error);
+        });
+}
 
 </script>
 
