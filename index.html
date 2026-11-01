@@ -195,6 +195,30 @@ h1{
     background:#111;
 }
 
+.restaurant-gallery-card{
+    height:auto;
+    max-height:250px;
+    aspect-ratio:16 / 9;
+    margin-bottom:15px;
+    border-radius:12px;
+}
+
+.restaurant-gallery-detail{
+    height:auto;
+    max-height:450px;
+    aspect-ratio:16 / 9;
+    margin-bottom:20px;
+    border-radius:12px;
+}
+
+.restaurant-gallery-popup{
+    height:auto;
+    max-height:160px;
+    aspect-ratio:3 / 2;
+    margin-bottom:10px;
+    border-radius:12px;
+}
+
 .review-teaser-image{
     position:absolute;
     inset:0;
@@ -208,12 +232,6 @@ h1{
 
 .review-teaser-image.is-visible{
     opacity:1;
-}
-
-@media(prefers-reduced-motion:reduce){
-    .review-teaser-image{
-        transition:none;
-    }
 }
 
 .review-teaser-content{
@@ -597,12 +615,7 @@ let currentLanguage = "da";
 let currentPage = {
     type: "home"
 };
-let reviewTeaserSlideshowTimer = null;
-
-const reviewTeaserSlideshowImages = {
-    "Gastromé": "images/gastrome/1.jpg",
-    "Lyst": "images/lyst/1.jpg"
-};
+let restaurantGallerySlideshowTimer = null;
 
 let previousPage = null;
 let previousScrollY = 0;
@@ -742,69 +755,15 @@ function reviewedRestaurants(){
         .slice(0, 3);
 }
 
-function startReviewTeaserSlideshow(){
-
-    if(reviewTeaserSlideshowTimer !== null){
-        clearInterval(reviewTeaserSlideshowTimer);
-        reviewTeaserSlideshowTimer = null;
-    }
-
-    const slideshows = [
-        ...document.querySelectorAll(
-            ".review-teaser-image-frame[data-review-slideshow]"
-        )
-    ];
-    if(!slideshows.length) return;
-
-    let showAlternate = false;
-    reviewTeaserSlideshowTimer = setInterval(() => {
-        if(currentPage.type !== "home"){
-            clearInterval(reviewTeaserSlideshowTimer);
-            reviewTeaserSlideshowTimer = null;
-            return;
-        }
-
-        showAlternate = !showAlternate;
-        slideshows.forEach(slideshow => {
-            slideshow.querySelectorAll(".review-teaser-image")
-                .forEach((image, index) => {
-                    image.classList.toggle(
-                        "is-visible",
-                        index === (showAlternate ? 1 : 0)
-                    );
-                });
-        });
-    }, 3000);
-}
-
 function showHomePage(){
 
     currentPage = { type: "home" };
 
     const reviews = reviewedRestaurants();
     const teaserCards = reviews.map(restaurant => {
-        const alternateImage =
-            reviewTeaserSlideshowImages[restaurant.restaurant];
-
         return `
         <article class="review-teaser">
-            ${restaurant.billede ? `
-            <div
-                class="review-teaser-image-frame"
-                ${alternateImage ? 'data-review-slideshow' : ""}>
-                <img
-                    class="review-teaser-image is-visible"
-                    src="${escapeHtml(restaurant.billede)}"
-                    alt="${escapeHtml(restaurant.restaurant)}">
-                ${alternateImage ? `
-                <img
-                    class="review-teaser-image"
-                    src="${escapeHtml(alternateImage)}"
-                    alt=""
-                    aria-hidden="true">
-                ` : ""}
-            </div>
-            ` : ""}
+            ${restaurantGalleryHtml(restaurant, "teaser")}
             <div class="review-teaser-content">
                 <h2>${escapeHtml(restaurant.restaurant)}</h2>
                 <p class="review-teaser-meta">${[
@@ -853,7 +812,7 @@ function showHomePage(){
         ` : ""}
     `;
 
-    startReviewTeaserSlideshow();
+    startRestaurantGallerySlideshow();
 }
 
 function distanceText(value){
@@ -1444,6 +1403,71 @@ function distanceInKm(gps){
     return 6371 * c;
 }
 
+function restaurantGalleryHtml(restaurant, layout = "card"){
+
+    const images = Array.isArray(restaurant.billeder) &&
+        restaurant.billeder.length
+        ? restaurant.billeder
+        : restaurant.billede
+            ? [restaurant.billede]
+            : [];
+    if(!images.length) return "";
+
+    return `
+<div
+    class="review-teaser-image-frame restaurant-gallery-${layout}"
+    ${images.length > 1
+        ? `data-restaurant-slideshow data-slide-index="0" data-gallery-alt="${escapeHtml(restaurant.restaurant)}"`
+        : ""}>
+    ${images.map((image, index) => `
+    <img
+        class="review-teaser-image${index === 0 ? " is-visible" : ""}"
+        src="${escapeHtml(image)}"
+        alt="${index === 0 ? escapeHtml(restaurant.restaurant) : ""}"
+        ${index === 0 ? "" : 'aria-hidden="true"'}>
+    `).join("")}
+</div>
+`;
+}
+
+function startRestaurantGallerySlideshow(){
+
+    if(restaurantGallerySlideshowTimer !== null){
+        clearInterval(restaurantGallerySlideshowTimer);
+        restaurantGallerySlideshowTimer = null;
+    }
+
+    const slideshows = [
+        ...document.querySelectorAll("[data-restaurant-slideshow]")
+    ];
+    if(!slideshows.length) return;
+
+    restaurantGallerySlideshowTimer = setInterval(() => {
+        const activeSlideshows = [
+            ...document.querySelectorAll("[data-restaurant-slideshow]")
+        ];
+        if(!activeSlideshows.length){
+            clearInterval(restaurantGallerySlideshowTimer);
+            restaurantGallerySlideshowTimer = null;
+            return;
+        }
+
+        activeSlideshows.forEach(slideshow => {
+            const images = slideshow.querySelectorAll(".review-teaser-image");
+            const currentIndex = Number(slideshow.dataset.slideIndex);
+            const nextIndex = (currentIndex + 1) % images.length;
+            slideshow.dataset.slideIndex = String(nextIndex);
+
+            images.forEach((image, index) => {
+                const isVisible = index === nextIndex;
+                image.classList.toggle("is-visible", isVisible);
+                image.alt = isVisible ? slideshow.dataset.galleryAlt : "";
+                image.setAttribute("aria-hidden", String(!isVisible));
+            });
+        });
+    }, 3000);
+}
+
 function showCountry(country){
 
     closeMobileMenu();
@@ -1456,6 +1480,7 @@ function showCountry(country){
 if(mapMode){
 
     zoomToCountry(country);
+    startRestaurantGallerySlideshow();
     return;
 
 }
@@ -1516,17 +1541,7 @@ ${routeButton}
 </p>
 ` : ''}
 
-${r.billede ? `
-<img
-    src="${r.billede}"
-    style="
-        width:100%;
-        max-height:250px;
-        object-fit:cover;
-        border-radius:12px;
-        margin-bottom:15px;
-    ">
-` : ''}
+${restaurantGalleryHtml(r)}
         </div>
 
         `;
@@ -1534,6 +1549,7 @@ ${r.billede ? `
     });
 
     document.getElementById('content').innerHTML = html;
+    startRestaurantGallerySlideshow();
 }
 
     function showCity(city){
@@ -1555,6 +1571,7 @@ ${r.billede ? `
 
     if(mapMode){
         zoomToRestaurants(cityRestaurants);
+        startRestaurantGallerySlideshow();
         return;
     }
 
@@ -1597,17 +1614,7 @@ ${routeButton}
 </p>
 ` : ''}
 
-${r.billede ? `
-<img
-    src="${r.billede}"
-    style="
-        width:100%;
-        max-height:250px;
-        object-fit:cover;
-        border-radius:12px;
-        margin-bottom:15px;
-    ">
-` : ''}
+${restaurantGalleryHtml(r)}
 
         </div>
 
@@ -1615,6 +1622,7 @@ ${r.billede ? `
     });
 
     document.getElementById('content').innerHTML = html;
+    startRestaurantGallerySlideshow();
 }
 
 function showRegion(region){
@@ -1639,6 +1647,7 @@ function showRegion(region){
 
     if(mapMode){
         zoomToRestaurants(regionRestaurants);
+        startRestaurantGallerySlideshow();
         return;
     }
 
@@ -1675,16 +1684,7 @@ function showRegion(region){
             </p>
             ` : ''}
 
-            ${r.billede ? `
-            <img
-                src="${r.billede}"
-                style="
-                    width:100%;
-                    max-height:250px;
-                    object-fit:cover;
-                    border-radius:12px;
-                ">
-            ` : ''}
+            ${restaurantGalleryHtml(r)}
 
         </div>
         `;
@@ -1693,6 +1693,7 @@ function showRegion(region){
 
     document.getElementById('content').innerHTML =
         html;
+    startRestaurantGallerySlideshow();
 
 }
 
@@ -1736,17 +1737,7 @@ function restaurantDetailsHtml(r, isPopup = false){
         : "🎥 Watch Instagram Reel";
 
     return `
-        ${r.billede ? `
-        <img
-            src="${r.billede}"
-            style="
-                width:100%;
-                max-height:${isPopup ? "160px" : "450px"};
-                object-fit:cover;
-                border-radius:12px;
-                margin-bottom:${isPopup ? "10px" : "20px"};
-            ">
-        ` : ''}
+        ${restaurantGalleryHtml(r, isPopup ? "popup" : "detail")}
         <p style="display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;">
             <span>📍</span>
             ${distance ? `<span style="white-space:nowrap;">${distance}</span>` : ''}
@@ -2743,6 +2734,7 @@ function bindRestaurantPopup(marker, r){
 
     marker.on('popupopen', event => {
         const popupElement = event.popup.getElement();
+        startRestaurantGallerySlideshow();
 
         popupElement.onmouseenter = () => {
             popupHovered = true;
@@ -2766,6 +2758,7 @@ function showRestaurant(name){
 
     if(mapMode){
 
+    startRestaurantGallerySlideshow();
     zoomToRestaurant(name);
     return;
 
@@ -2820,6 +2813,7 @@ function showRestaurant(name){
 
 </div>
 `;
+    startRestaurantGallerySlideshow();
 
 }
 

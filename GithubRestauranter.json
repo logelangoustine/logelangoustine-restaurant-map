@@ -8,6 +8,11 @@
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/alimentum/main.jpg",
+        "billeder":  [
+            "images/alimentum/main.jpg",
+            "images/alimentum/1.jpg",
+            "images/alimentum/2.jpg"
+        ],
         "gps":  "57.04592386020625, 9.929341740348628",
         "kategori":  "Fine Dining"
     },
@@ -20,6 +25,11 @@
         "instagram":  "https://www.instagram.com/reel/DcQceuWs3_f/?utm_source=ig_web_copy_link\u0026exln=MzRlODBiNWFlZA==\u0026srtk=MzRlODBiNWFlZA==",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/bagelb/main.jpg",
+        "billeder":  [
+            "images/bagelb/main.jpg",
+            "images/bagelb/1.jpg",
+            "images/bagelb/2.jpg"
+        ],
         "gps":  "55.70236289516523, 12.549273374370731",
         "kategori":  "Side Dish"
     },
@@ -32,6 +42,11 @@
         "instagram":  "https://www.instagram.com/reel/DaKjNaFQbvT/?utm_source=ig_web_copy_link\u0026mdxt=MzRlODBiNWFlZA==\u0026srtk=MzRlODBiNWFlZA==",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/bobergs/main.jpg",
+        "billeder":  [
+            "images/bobergs/main.jpg",
+            "images/bobergs/1.jpg",
+            "images/bobergs/2.jpg"
+        ],
         "gps":  "55.51356849409216, 14.347470240280588",
         "kategori":  "Fine Dining"
     },
@@ -44,6 +59,11 @@
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/casa/main.jpg",
+        "billeder":  [
+            "images/casa/main.jpg",
+            "images/casa/1.jpg",
+            "images/casa/2.jpg"
+        ],
         "gps":  "41.20306074251952, -8.714989773771448",
         "kategori":  "Fine Dining"
     },
@@ -104,6 +124,11 @@
         "instagram":  "",
         "anmeldelse":  "Samlet karakter: 10,75\n\nGastromé er en restaurant, der ofte går lidt under radaren. Det er egentlig bemærkelsesværdigt, for både mad, service og æstetik er på et niveau, der hører til i toppen af dansk gastronomi.\n\nRestauranten fik sin Michelin-stjerne blot seks måneder efter åbningen i 2014 og har beholdt den lige siden.\n\nVores besøg i den store villa i Risskov begyndte fremragende. Fra første øjeblik var der fokus på gæsten, og servicen satte en høj standard for resten af aftenen.\n\nKøkkenet tager udgangspunkt i moderne nordisk gastronomi med fokus på lokale råvarer. Særligt grøntsagerne imponerede os. Der var en friskhed og præcision, som fik dem til at stå lige så stærkt som fisk og kød.\n\nSelvom desserterne med arme riddere med trøffel og vaffel med pistacie og Madagaskarpeber gjorde stort indtryk, var aftenens højdepunkter for os en fremragende helleflynder og en elegant østersservering. Og så skader det naturligvis ikke, at der blev skænket champagne hele to gange undervejs.\n\nSpis her hvis: Du holder af underspillet nordisk gastronomi, hvor råvarerne er i centrum, og sæsonens grøntsager spiller en hovedrolle.\n\nBesøgt: Maj 2023\n\nLogenote: Frederik kæmpede med lidt sygdom på dagen. Vinmenuen hjalp ikke nødvendigvis på situationen, og på et tidspunkt tog han sig en lille lur ved bordet.",
         "billede":  "images/gastrome/main.jpg",
+        "billeder":  [
+            "images/gastrome/main.jpg",
+            "images/gastrome/1.jpg",
+            "images/gastrome/2.jpg"
+        ],
         "gps":  "56.18705195225343, 10.217750113325929",
         "kategori":  "Fine Dining"
     },
@@ -188,6 +213,11 @@
         "instagram":  "",
         "anmeldelse":  "Samlet karakter: 12,25\n\nLyst var vores første restaurantbesøg, efter vi havde opgraderet logen og for alvor var begyndt at gå efter de store gastronomiske oplevelser. Efter måneders venten var dagen endelig kommet. Og timingen kunne næsten ikke have været bedre: Bare fire dage tidligere havde restauranten fået sin første Michelin-stjerne.\n\nOplevelsen begynder allerede udenfor. Den enorme bygning er et kunstværk i sig selv, og indenfor fortsætter det med specialdesignet keramik, bestik og musik, der gør Lyst til noget helt særligt.\n\nElementerne styrer menuen, og under vores besøg var det vand og luft, der satte retningen. I alt kom vi igennem 21 serveringer. Bedst var en kartoffelservering med skum lavet på skrællerne fra dagen før og kaviar. Men det helt enkle kunne også noget: En smørmad og et glas Krug champagne. Mageløst.\n\nAftenen sluttede med Daniel McBurnies version af en mini-berliner. Og da chefen selv kom forbi og tilbød nummer to og tre, sagde vi selvfølgelig ikke nej.\n\nLyst er ikke billigt. Og har man aldrig været der, er det fair at spørge, om oplevelsen virkelig kan stå mål med prisen. For os er svaret ret enkelt. Lyst står stadig, flere år senere, som en af de bedste restaurantoplevelser, vi nogensinde har haft.\n\nSpis her hvis: Du vil have en totaloplevelse, hvor alle sanser bliver sat i spil, og intet føles statisk.\n\nBesøgt: September 2021\n\nLogenote: Frederik skal nok i fremtiden holde sig fra cigaren, til den efterfølgende cocktail.",
         "billede":  "images/lyst/main.jpg",
+        "billeder":  [
+            "images/lyst/main.jpg",
+            "images/lyst/1.jpg",
+            "images/lyst/2.jpg"
+        ],
         "gps":  "55.70592023926928, 9.55516069796094",
         "kategori":  "Fine Dining"
     },
@@ -224,6 +254,11 @@
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/ang/main.jpg",
+        "billeder":  [
+            "images/ang/main.jpg",
+            "images/ang/1.jpg",
+            "images/ang/2.jpg"
+        ],
         "gps":  "57.06431600530031, 12.556945398021371",
         "kategori":  "Fine Dining"
     },
