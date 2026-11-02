@@ -88,6 +88,11 @@
         "instagram":  "https://www.instagram.com/reel/DebskPLskNh/?utm_source=ig_web_copy_link\u0026psln=MzRlODBiNWFlZA==\u0026srtk=MzRlODBiNWFlZA==",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/cocina/main.jpg",
+        "billeder":  [
+            "images/cocina/main.jpg",
+            "images/cocina/1.jpg",
+            "images/cocina/2.jpg"
+        ],
         "gps":  "41.38653711469912, 2.140211197398855",
         "kategori":  "Fine Dining"
     },
@@ -100,6 +105,11 @@
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/domane/main.jpg",
+        "billeder":  [
+            "images/domane/main.jpg",
+            "images/domane/1.jpg",
+            "images/domane/2.jpg"
+        ],
         "gps":  "56.15604185249831, 8.89608769798085",
         "kategori":  "Fine Dining"
     },
@@ -112,6 +122,11 @@
         "instagram":  "https://www.instagram.com/reel/DeJ_huLsPEn/?utm_source=ig_web_copy_link\u0026srtk=MzRlODBiNWFlZA==",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/enigma/main.jpg",
+        "billeder":  [
+            "images/enigma/main.jpg",
+            "images/enigma/1.jpg",
+            "images/enigma/2.jpg"
+        ],
         "gps":  "41.376784033226365, 2.1540118550704572",
         "kategori":  "Fine Dining"
     },
@@ -123,7 +138,12 @@
         "adresse":  "Jagtvej 101, 2200 København",
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
-        "billede":  "",
+        "billede":  "images/fermentum/main.jpg",
+        "billeder":  [
+            "images/fermentum/main.jpg",
+            "images/fermentum/1.jpg",
+            "images/fermentum/2.jpg"
+        ],
         "gps":  "55.69593891889196, 12.550207869124579",
         "kategori":  "Side Dish"
     },
