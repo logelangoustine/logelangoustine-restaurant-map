@@ -469,8 +469,6 @@ function toggleCategory(category){
     activeCategories[category] =
         !activeCategories[category];
 
-    buildMenu();
-
     if(mapMode){
         setMapMarkers(
             restaurants.filter(r => activeCategories[r.kategori])

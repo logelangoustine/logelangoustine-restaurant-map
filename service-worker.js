@@ -1,4 +1,4 @@
-const CACHE_NAME = "loge-langoustine-v5";
+const CACHE_NAME = "loge-langoustine-v6";
 const APP_SHELL = [
     "./",
     "./index.html",
