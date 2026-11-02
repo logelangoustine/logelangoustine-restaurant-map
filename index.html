@@ -25,6 +25,18 @@
             t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
         })(window, document, "clarity", "script", "z16jbeycc8");
+
+        try {
+            const storageKey = "clarity_custom_id";
+            let customId = localStorage.getItem(storageKey);
+            if (!customId) {
+                customId = crypto.randomUUID();
+                localStorage.setItem(storageKey, customId);
+            }
+            window.clarity("identify", customId);
+        } catch (error) {
+            console.error("Could not initialize the Clarity custom identifier.", error);
+        }
     </script>
 
     <!-- Google tag (gtag.js) -->
