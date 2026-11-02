@@ -58,7 +58,12 @@
         "adresse":  "Calle del Pintor Fortuny 31, Barcelona, Cataluña, 08001",
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
-        "billede":  "",
+        "billede":  "images/caravelle/main.jpg",
+        "billeder":  [
+            "images/caravelle/main.jpg",
+            "images/caravelle/1.jpg",
+            "images/caravelle/2.jpg"
+        ],
         "gps":  "41.38243677136521, 2.1688168973987443",
         "kategori":  "Side Dish"
     },
@@ -156,6 +161,11 @@
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/frederikshoj/main.jpg",
+        "billeder":  [
+            "images/frederikshoj/main.jpg",
+            "images/frederikshoj/1.jpg",
+            "images/frederikshoj/2.jpg"
+        ],
         "gps":  "56.147073282070444, 10.211728768845672",
         "kategori":  "Fine Dining"
     },
@@ -184,7 +194,12 @@
         "adresse":  "Gladsax bygata 44a, 272 94 Simrishamn, Sverige",
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
-        "billede":  "",
+        "billede":  "images/gustafs/main.jpg",
+        "billeder":  [
+            "images/gustafs/main.jpg",
+            "images/gustafs/1.jpg",
+            "images/gustafs/2.jpg"
+        ],
         "gps":  "55.560663193635285, 14.286533684462354",
         "kategori":  "Side Dish"
     },
@@ -197,6 +212,11 @@
         "instagram":  "https://www.instagram.com/reel/DcIrgi_soDA/?utm_source=ig_web_copy_link\u0026obrf=MzRlODBiNWFlZA==\u0026srtk=MzRlODBiNWFlZA==",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/hero/main.jpg",
+        "billeder":  [
+            "images/hero/main.jpg",
+            "images/hero/1.jpg",
+            "images/hero/2.jpg"
+        ],
         "gps":  "55.69844796645, 12.543174742140284",
         "kategori":  "Side Dish"
     },
@@ -209,6 +229,11 @@
         "instagram":  "https://www.instagram.com/reel/DePJDy9MWSI/?utm_source=ig_web_copy_link\u0026psln=MzRlODBiNWFlZA==\u0026srtk=MzRlODBiNWFlZA==",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/hoffman/main.jpg",
+        "billeder":  [
+            "images/hoffman/main.jpg",
+            "images/hoffman/1.jpg",
+            "images/hoffman/2.jpg"
+        ],
         "gps":  "41.38508562060276, 2.1827016893331517",
         "kategori":  "Side Dish"
     },
@@ -221,6 +246,11 @@
         "instagram":  "https://www.instagram.com/reel/DX35ZiRsh0K/?utm_source=ig_web_copy_link\u0026rpxt=MzRlODBiNWFlZA==\u0026srtk=MzRlODBiNWFlZA==",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/knystaforsen/main.jpg",
+        "billeder":  [
+            "images/knystaforsen/main.jpg",
+            "images/knystaforsen/1.jpg",
+            "images/knystaforsen/2.jpg"
+        ],
         "gps":  "56.95801617272983, 13.139394071032251",
         "kategori":  "Fine Dining"
     },
@@ -233,6 +263,11 @@
         "instagram":  "https://www.instagram.com/reel/Db0HD0iM-pz/?utm_source=ig_web_copy_link\u0026mdxt=MzRlODBiNWFlZA==\u0026srtk=MzRlODBiNWFlZA==",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/latin/main.jpg",
+        "billeder":  [
+            "images/latin/main.jpg",
+            "images/latin/1.jpg",
+            "images/latin/2.jpg"
+        ],
         "gps":  "55.6707670358419, 12.558390982615611",
         "kategori":  "Value Hunt"
     },
@@ -245,6 +280,11 @@
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/monument/main.jpg",
+        "billeder":  [
+            "images/monument/main.jpg",
+            "images/monument/1.jpg",
+            "images/monument/2.jpg"
+        ],
         "gps":  "41.217463988735375, -8.625554925236035",
         "kategori":  "Fine Dining"
     },
@@ -257,6 +297,11 @@
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/lieffroy/main.jpg",
+        "billeder":  [
+            "images/lieffroy/main.jpg",
+            "images/lieffroy/1.jpg",
+            "images/lieffroy/2.jpg"
+        ],
         "gps":  "55.32350745075507, 10.810007897944107",
         "kategori":  "Fine Dining"
     },
@@ -286,6 +331,11 @@
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/miramar/main.jpg",
+        "billeder":  [
+            "images/miramar/main.jpg",
+            "images/miramar/1.jpg",
+            "images/miramar/2.jpg"
+        ],
         "gps":  "42.371062696770636, 3.1601392446542333",
         "kategori":  "Fine Dining"
     },
@@ -298,6 +348,11 @@
         "instagram":  "https://www.instagram.com/reel/DakTDQmxVVs/?utm_source=ig_web_copy_link\u0026exln=MzRlODBiNWFlZA==\u0026srtk=MzRlODBiNWFlZA==",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/oink/main.jpg",
+        "billeder":  [
+            "images/oink/main.jpg",
+            "images/oink/1.jpg",
+            "images/oink/2.jpg"
+        ],
         "gps":  "55.70148897834486, 12.4324729121763",
         "kategori":  "Side Dish"
     },
@@ -309,7 +364,11 @@
         "adresse":  "Refsnæsgade 32, 2200 København",
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
-        "billede":  "",
+        "billede":  "images/omar/main.jpg",
+        "billeder":  [
+            "images/omar/main.jpg",
+            "images/omar/1.jpg"
+        ],
         "gps":  "55.69597151881136, 12.556276855632394",
         "kategori":  "Value Hunt"
     },
@@ -321,7 +380,12 @@
         "adresse":  "Christianshavns Voldgade 52, 1424 København",
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
-        "billede":  "",
+        "billede":  "images/lille molle/main.jpg",
+        "billeder":  [
+            "images/lille molle/main.jpg",
+            "images/lille molle/1.jpg",
+            "images/lille molle/2.jpg"
+        ],
         "gps":  "55.67159293029388, 12.596380726795307",
         "kategori":  "Fine Dining"
     },
@@ -333,7 +397,12 @@
         "adresse":  "Burgemeester Brokxlaan 1041, 5041 RP Tilburg",
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
-        "billede":  "",
+        "billede":  "images/houtloods/main.jpg",
+        "billeder":  [
+            "images/houtloods/main.jpg",
+            "images/houtloods/1.jpg",
+            "images/houtloods/2.jpg"
+        ],
         "gps":  "51.56209672600081, 5.081137972992405",
         "kategori":  "Fine Dining"
     },
@@ -362,7 +431,12 @@
         "adresse":  "Storgatan 57, Ängelholm, Skåne län, 262 35",
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
-        "billede":  "",
+        "billede":  "images/rost/main.jpg",
+        "billeder":  [
+            "images/rost/main.jpg",
+            "images/rost/1.jpg",
+            "images/rost/2.jpg"
+        ],
         "gps":  "56.24669544081251, 12.864423771000519",
         "kategori":  "Side Dish"
     },
@@ -374,7 +448,12 @@
         "adresse":  "Madvigs Allé 15, 1829 Frederiksberg",
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
-        "billede":  "",
+        "billede":  "images/sans souci/main.jpg",
+        "billeder":  [
+            "images/sans souci/main.jpg",
+            "images/sans souci/1.jpg",
+            "images/sans souci/2.jpg"
+        ],
         "gps":  "55.676355468047355, 12.54138606727201",
         "kategori":  "Value Hunt"
     },
@@ -387,6 +466,11 @@
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/yeatman/main.jpg",
+        "billeder":  [
+            "images/yeatman/main.jpg",
+            "images/yeatman/1.jpg",
+            "images/yeatman/2.jpg"
+        ],
         "gps":  "41.13346718250255, -8.612968087265916",
         "kategori":  "Fine Dining"
     },
@@ -398,7 +482,12 @@
         "adresse":  "Jagtvej 9, st th, 2200 København",
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
-        "billede":  "",
+        "billede":  "images/toja/main.jpg",
+        "billeder":  [
+            "images/toja/main.jpg",
+            "images/toja/1.jpg",
+            "images/toja/2.jpg"
+        ],
         "gps":  "55.688686980070614, 12.542135842139862",
         "kategori":  "Side Dish"
     },
@@ -411,6 +500,11 @@
         "instagram":  "",
         "anmeldelse":  "Anmeldelse kommer snart",
         "billede":  "images/vollmers/main.jpg",
+        "billeder":  [
+            "images/vollmers/main.jpg",
+            "images/vollmers/1.jpg",
+            "images/vollmers/2.jpg"
+        ],
         "gps":  "55.60482959966126, 12.996585587272712",
         "kategori":  "Fine Dining"
     }
