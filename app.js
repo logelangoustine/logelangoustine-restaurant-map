@@ -818,6 +818,22 @@ function restaurantGalleryHtml(restaurant, layout = "card"){
 `;
 }
 
+function shuffleRestaurantGalleryIndices(length, firstIndexToAvoid = -1){
+
+    const indices = Array.from({length}, (_, index) => index);
+    for(let index = indices.length - 1; index > 0; index--){
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+        [indices[index], indices[randomIndex]] =
+            [indices[randomIndex], indices[index]];
+    }
+
+    if(indices.length > 1 && indices[0] === firstIndexToAvoid){
+        [indices[0], indices[1]] = [indices[1], indices[0]];
+    }
+
+    return indices;
+}
+
 function startRestaurantGallerySlideshow(){
 
     if(restaurantGallerySlideshowTimer !== null){
@@ -830,6 +846,21 @@ function startRestaurantGallerySlideshow(){
     ];
     if(!slideshows.length) return;
 
+    slideshows.forEach(slideshow => {
+        const images = [...slideshow.querySelectorAll(".review-teaser-image")];
+        const order = shuffleRestaurantGalleryIndices(images.length);
+        slideshow.dataset.galleryOrder = order.join(",");
+        slideshow.dataset.galleryPosition = "0";
+        slideshow.dataset.slideIndex = String(order[0]);
+
+        images.forEach((image, index) => {
+            const isVisible = index === order[0];
+            image.classList.toggle("is-visible", isVisible);
+            image.alt = isVisible ? slideshow.dataset.galleryAlt : "";
+            image.setAttribute("aria-hidden", String(!isVisible));
+        });
+    });
+
     restaurantGallerySlideshowTimer = setInterval(() => {
         const activeSlideshows = [
             ...document.querySelectorAll("[data-restaurant-slideshow]")
@@ -841,9 +872,21 @@ function startRestaurantGallerySlideshow(){
         }
 
         activeSlideshows.forEach(slideshow => {
-            const images = slideshow.querySelectorAll(".review-teaser-image");
-            const currentIndex = Number(slideshow.dataset.slideIndex);
-            const nextIndex = (currentIndex + 1) % images.length;
+            const images = [...slideshow.querySelectorAll(".review-teaser-image")];
+            let order = slideshow.dataset.galleryOrder.split(",").map(Number);
+            let position = Number(slideshow.dataset.galleryPosition) + 1;
+
+            if(position >= order.length){
+                order = shuffleRestaurantGalleryIndices(
+                    images.length,
+                    Number(slideshow.dataset.slideIndex)
+                );
+                position = 0;
+                slideshow.dataset.galleryOrder = order.join(",");
+            }
+
+            const nextIndex = order[position];
+            slideshow.dataset.galleryPosition = String(position);
             slideshow.dataset.slideIndex = String(nextIndex);
 
             images.forEach((image, index) => {
