@@ -15,6 +15,7 @@ html, body {
 
 body {
   overflow: hidden;
+  touch-action: none;
   color: var(--ink);
   font-family: Georgia, "Times New Roman", serif;
   background:

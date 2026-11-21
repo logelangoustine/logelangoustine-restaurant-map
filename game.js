@@ -460,11 +460,15 @@ startButton.addEventListener("click", event => {
   startGame();
 });
 
-window.addEventListener("pointerdown", event => {
-  if (event.target.closest("button")) return;
+function handleScreenPress(event) {
+  const target = event.target;
+  if (target instanceof Element && target.closest("button")) return;
   event.preventDefault();
   jump();
-});
+}
+
+document.addEventListener("pointerdown", handleScreenPress, { passive: false });
+document.addEventListener("touchstart", handleScreenPress, { passive: false });
 
 startButton.addEventListener("pointerdown", event => {
   event.stopPropagation();
