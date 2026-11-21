@@ -6,6 +6,7 @@ const overlayText = document.getElementById("overlayText");
 const scoreElement = document.getElementById("score");
 const bestScoreElement = document.getElementById("bestScore");
 const soundButton = document.getElementById("soundButton");
+const gameCard = document.querySelector(".game-card");
 
 const W = 960;
 const H = 360;
@@ -459,9 +460,13 @@ startButton.addEventListener("click", event => {
   startGame();
 });
 
-canvas.addEventListener("pointerdown", event => {
+gameCard.addEventListener("pointerdown", event => {
   event.preventDefault();
   jump();
+});
+
+startButton.addEventListener("pointerdown", event => {
+  event.stopPropagation();
 });
 
 window.addEventListener("keydown", event => {
