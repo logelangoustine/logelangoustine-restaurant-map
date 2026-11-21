@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Loge Langoustine Run</title>
+  <link rel="stylesheet" href="game.css">
+</head>
+<body>
+  <main class="game-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">L</span>
+        <div>
+          <span class="brand-name">Loge Langoustine</span>
+          <span class="brand-subtitle">RUN</span>
+        </div>
+      </div>
+      <button class="sound-button" id="soundButton" type="button" aria-label="Sluk lyd">Lyd på</button>
+    </header>
+
+    <section class="game-card" aria-label="Langoustine løbespil">
+      <canvas id="gameCanvas" width="960" height="360"></canvas>
+      <div class="start-overlay" id="startOverlay">
+        <p class="eyebrow">Et lille hav-eventyr</p>
+        <h1>Langoustine Run</h1>
+        <p id="overlayText">Hop over skraldet og saml mad op.</p>
+        <button id="startButton" type="button">Start løbet</button>
+        <p class="controls">Tryk på <strong>mellemrum</strong>, <strong>pil op</strong> eller <strong>tryk på skærmen</strong></p>
+      </div>
+      <div class="hud" aria-live="polite">
+        <span>Score <strong id="score">00000</strong></span>
+        <span>Bedst <strong id="bestScore">00000</strong></span>
+      </div>
+    </section>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
