@@ -460,7 +460,8 @@ startButton.addEventListener("click", event => {
   startGame();
 });
 
-gameCard.addEventListener("pointerdown", event => {
+window.addEventListener("pointerdown", event => {
+  if (event.target.closest("button")) return;
   event.preventDefault();
   jump();
 });
